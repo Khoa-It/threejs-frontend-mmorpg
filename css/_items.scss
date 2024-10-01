@@ -1,0 +1,17 @@
+
+#items{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @include flex-row;
+    padding: 10px;
+    justify-content: flex-end;
+
+    img{
+        display: block;
+        width: 6%;
+        height: auto;
+        margin-right: 10px;
+    }
+}
