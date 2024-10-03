@@ -33,8 +33,6 @@ function refreshWorld() {
     // stats.update();
     character.animate(time);
     monster.update(time);
-    AI_Entity.updateByKey(time, 'monster');
-    AI_Entity.updateByKey(time, 'woman_warior');
     physicWorld.update();
     graphicWorld.renderer.render( graphicWorld.scene, graphicWorld.camera );
 }

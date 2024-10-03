@@ -8,6 +8,7 @@ import { AI_Entity } from '../modules/yuka_model_manager.js';
 import PhysicWorld from '../modules/PhysicWorld.js';
 import { Physic_Manager } from '../modules/cannon_model_manager.js';
 import { CharacterHealthbar } from '../modules/HealthBar.js';
+import { State_Manager } from '../modules/state_model_manager.js';
 
 
 export class CharacterController {
@@ -32,7 +33,7 @@ export class CharacterController {
         this._velocity = new THREE.Vector3(0, 0, 0);
         this._position = new THREE.Vector3();
         this._animations = {};
-       
+
         this.loader = new GLTFLoader();
         await this.loadModelFile(this.charName);
 
@@ -40,6 +41,11 @@ export class CharacterController {
             new BasicCharacterControllerProxy(this._animations), this._mixer, this.charName);
         this._input = new CharacterControllerInput();
         this._stateMachine.SetState('idle');
+
+        this.isLoaded = false;
+        this.isBeingKnockedBack = false; // Cờ đánh dấu việc bị đánh bật
+        this.knockbackForce = new THREE.Vector3(0, 0, 0); // Lực đánh bật
+
     }
 
     async loadModelFile(charName) {
@@ -49,30 +55,40 @@ export class CharacterController {
             MODELS[charName]['punch'],
             MODELS[charName]['death'],
             MODELS[charName]['walkback'],
+            MODELS[charName]['sweepfall'],
         ];
 
-        const ani_name = ['run', 'punch', 'death', 'walkback'];
+        const ani_name = ['run', 'punch', 'death', 'walkback', 'sweepfall'];
 
         const onLoadStandModel = (glb) => {
             const model = glb.scene;
-            GraphicModelManager.model[charName] = model;
-            AI_Entity.createAIController(charName, true);
-            this._model = model;
             model.scale.set(...MODELS[charName]['scale']);
             model.position.set(...MODELS[charName]['position']);
-            this.physicWorld.createPhysicBoxBody(charName, MODELS['woman_warior'].physicSize);
             this.environment.scene.add(model);
+            this._model = model;
             this._mixer = new THREE.AnimationMixer(this._model);
             this._animations['idle'] = this._mixer.clipAction(glb.animations[0]);
         }
 
-        const onLoadOtherModel = (glb, index) => {
+        let countLoad = 0
+        const detailTask = (glb, index) => {
+            countLoad += 1;
             const name = ani_name[index];
             this._animations[name] = this._mixer.clipAction(glb.animations[0]);
+            if (countLoad == files.length) afterLoad();
         }
 
-        const loadOtherFile = (url, index) => {
-            this.loader.load(url, (glb)=> onLoadOtherModel(glb, index));
+        const onLoadOtherModel = (url, index) => {
+            this.loader.load(url, (glb) => detailTask(glb, index));
+        }
+
+        const afterLoad = () => {
+            GraphicModelManager.model[charName] = this._model;
+            AI_Entity.createAIController(charName, true);
+            State_Manager.addStateModel(charName);
+            State_Manager.model[charName].isPlayer = true;
+            this.physicWorld.createPhysicBoxBody(charName, MODELS[charName].physicSize);
+            this.isLoaded = true;
         }
 
         await new Promise((resolve) => {
@@ -84,35 +100,63 @@ export class CharacterController {
 
         await Promise.all(files.map((url, index) => {
             return new Promise((resolve) => {
-                loadOtherFile(url, index);
+                onLoadOtherModel(url, index);
                 resolve();
             });
         }));
     }
 
-    Update(timeInSeconds) {
-        
-        if (!this._stateMachine._currentState) {
-            return;
-        }   
-
-        if (Physic_Manager.model[this.charName].isCollision) {
-            this._input._keys.forward = false;
-        }
-
-        if (Physic_Manager.model[this.charName].isBeingAttacked) {
-            this.hp -= Physic_Manager.model[this.charName].decreaseHp;
+    updateHp(timeInSeconds) {
+        if (State_Manager.model[this.charName].isBeingAttacked) {
+            this._stateMachine.SetState('sweepfall');
+            this.hp -= State_Manager.model[this.charName].damageReceived;
             this.healthbar.setHp(this.hp);
-            Physic_Manager.model[this.charName].decreaseHp = 0;
-            Physic_Manager.model[this.charName].isBeingAttacked = false;
+            // Thêm logic đánh bật
+            this.isBeingKnockedBack = true; // Bắt đầu đánh bật
+            this.knockbackForce.set(0, 0, 5); // Đặt lực đánh bật về phía sau (hoặc tùy chỉnh theo hướng đánh)
+
+            State_Manager.model[this.charName].damageReceived = 0;
+            State_Manager.model[this.charName].isBeingAttacked = false;
         }
 
-        if (this.hp == 0) {
+        this.knockBack(timeInSeconds)
+
+        if (this.hp <= 0) {
             this._stateMachine.SetState('death');
         }
 
-        this._stateMachine.Update(timeInSeconds, this._input);
 
+    }
+
+    knockBack(timeInSeconds) {
+        if (this.isBeingKnockedBack) {
+            // Giảm vị trí về phía sau
+            const controlObject = this._model;
+            const forward = new THREE.Vector3(0, 0, 1);
+            forward.applyQuaternion(controlObject.quaternion);
+            forward.normalize();
+
+            // Di chuyển về phía sau theo lực đánh bật
+            const knockbackDirection = forward.clone().negate(); // Hướng ngược lại
+            const knockbackVelocity = knockbackDirection.multiplyScalar(this.knockbackForce.z * timeInSeconds);
+
+            controlObject.position.add(knockbackVelocity);
+
+            // Giảm dần lực đánh bật
+            this.knockbackForce.z -= 0.1; // Giảm tốc dần, tùy chỉnh giá trị để phù hợp
+
+            // Ngừng đánh bật khi lực nhỏ hơn một ngưỡng nhất định
+            if (this.knockbackForce.z < 0) {
+                this.isBeingKnockedBack = false;
+                this.knockbackForce.set(0, 0, 0); // Reset lực
+            }
+        }
+    }
+
+
+
+
+    updatePos(timeInSeconds) {
         const currentState = this._stateMachine._currentState;
         if (currentState.Name != 'punch' &&
             currentState.Name != 'run' &&
@@ -121,7 +165,7 @@ export class CharacterController {
         ) {
             return;
         }
-        
+
 
         const velocity = this._velocity;
         const frameDecceleration = new THREE.Vector3(
@@ -138,7 +182,7 @@ export class CharacterController {
         const _Q = new THREE.Quaternion();
         const _A = new THREE.Vector3();
         const _R = controlObject.quaternion.clone();
-        
+
         const acc = this._acceleration.clone();
         if (this._input._keys.shift) {
             acc.multiplyScalar(2.0);
@@ -184,6 +228,24 @@ export class CharacterController {
 
         controlObject.position.copy(pos);
 
-        this.physicWorld.updateByKey(this.charName);
+
+    }
+
+    Update(timeInSeconds) {
+        if (!this.isLoaded) return;
+
+        if (!this._stateMachine._currentState) {
+            return;
+        }
+
+        if (Physic_Manager.model[this.charName].isCollision) {
+            this._input._keys.forward = false;
+        }
+
+        this._stateMachine.Update(timeInSeconds, this._input);
+        this.updatePos(timeInSeconds);
+        this.updateHp(timeInSeconds);
+        Physic_Manager.updateByKey(this.charName);
+        AI_Entity.updateByKey(timeInSeconds, 'woman_warior');
     }
 };

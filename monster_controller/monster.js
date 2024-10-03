@@ -2,27 +2,24 @@ import { MonsterFSM, MonsterProxy } from "./monster_fsm.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from 'three'
 import { MODELS } from "../assets.js";
-import { ControlAndSystem } from "../modules/ControlAndSystem.js";
 import { GraphicModelManager } from "../modules/three_model_manager.js";
 import { AI_Entity } from "../modules/yuka_model_manager.js";
-import { FSM_NPC } from "./fsm_manager.js";
 import PhysicWorld from "../modules/PhysicWorld.js";
 import { BossHealthBar } from "../modules/HealthBar.js";
 import { Physic_Manager } from "../modules/cannon_model_manager.js";
+import { State_Manager } from "../modules/state_model_manager.js";
 export class Monster {
     constructor(enviroment = { scene: new THREE.Scene() }, physicWorld = new PhysicWorld()) {
         this.healthbar = new BossHealthBar('monster');
         this.hp = 100;
         this.loader = new GLTFLoader();
         this.enviroment = enviroment;
+        this.physicWorld = physicWorld;
         this.mixer = null;
         this.animations = {};
         this.fsm = new MonsterFSM(new MonsterProxy(this.animations), 'monster');
         this.isLoaded = false;
         this.name = 'monster';
-        this.aiEntity = null;
-        this.physicWorld = physicWorld;
-        this.canAttack = true;
         this.loadModel();
     }
 
@@ -47,30 +44,33 @@ export class Monster {
         let countLoadTime = 0;
 
         const detailTask = async (glb, index) => {
-            countLoadTime += 1;
-            console.log('detailTask', index, countLoadTime);        
+            countLoadTime += 1;      
             const anim_name = animNames[index];
             this.animations[anim_name] = this.mixer.clipAction(glb.animations[0]);
-            if(countLoadTime == files.length) {
-                this.aiEntity = AI_Entity.createAIController('monster');
-                this.isLoaded = true;
-                this.fsm.SetState('walking');
-            }
+            if(countLoadTime == files.length) afterLoad();
         }
 
         const othersLoad = async (url, index) => {
             this.loader.load(url, async (glb) => await detailTask(glb, index));
         }
 
+        let globalmodel;
         const startLoad = async (glb) => {
             const model = glb.scene;
-            GraphicModelManager.model['monster'] = model;
-            model.scale.set(...MODELS['monster'].scale);
-            model.position.set(...MODELS['monster'].position);
-            this.physicWorld.createPhysicBoxBody('monster', MODELS['monster'].physicSize);
+            model.scale.set(...MODELS[this.name].scale);
+            model.position.set(...MODELS[this.name].position);
+            globalmodel = model;
             this.mixer = new THREE.AnimationMixer(model);
             this.enviroment.scene.add(model);
-            console.log('start load');
+        }
+
+        const afterLoad = async () => {
+            GraphicModelManager.model[this.name] = globalmodel;
+            AI_Entity.createAIController(this.name);
+            State_Manager.addStateModel(this.name);
+            this.physicWorld.createPhysicBoxBody(this.name, MODELS[this.name].physicSize);
+            this.isLoaded = true;
+            this.fsm.SetState('walking');
         }
 
         await new Promise((resolve) => {
@@ -88,23 +88,34 @@ export class Monster {
         }));
     }
 
-    update(time){
-        if(!this.isLoaded) return;
-        if(!this.fsm._currentState) return;
-        this.mixer.update(time);
+    calculatorDistanceWithPlayer(){
         const monster = GraphicModelManager.model[this.name];
         const player = GraphicModelManager.model['woman_warior'];
         const distanceWithPlayer = monster.position.distanceTo(player.position);
-        this.fsm.Update(time, this.name, distanceWithPlayer, this.canAttack);
-        this.physicWorld.updateByKey('monster');
-        if (Physic_Manager.model[this.name].isBeingAttacked) {
-            this.hp -= Physic_Manager.model[this.name].decreaseHp;
+        return distanceWithPlayer;
+    }
+
+    updateHp(){
+        if (State_Manager.model[this.name].isBeingAttacked) {
+            this.hp -= State_Manager.model[this.name].damageReceived;
+            if(this.hp < 0) this.hp = 0;
             this.healthbar.setHp(this.hp);
-            Physic_Manager.model[this.name].decreaseHp = 0;
-            Physic_Manager.model[this.name].isBeingAttacked = false;
+            State_Manager.model[this.name].damageReceived = 0;
+            State_Manager.model[this.name].isBeingAttacked = false;
         }
         if (this.hp == 0) {
             this.fsm.SetState('death');
         }
+    }
+
+    update(time){
+        if(!this.isLoaded) return;
+        if(!this.fsm._currentState) return;
+        if(!State_Manager.isPlayerLoaded()) return;
+        this.mixer.update(time);
+        this.fsm.Update(time, this.calculatorDistanceWithPlayer());
+        AI_Entity.updateByKey(time, 'monster');
+        Physic_Manager.updateByKey(this.name);
+        this.updateHp();
     }
 }

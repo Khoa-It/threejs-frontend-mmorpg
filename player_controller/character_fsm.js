@@ -6,6 +6,7 @@ import { RunState } from './states/RunState.js';
 import { DeathState } from './states/DeathState.js';
 import { PunchState } from './states/PunchState.js';
 import { WalkbackState } from './states/WalkbackState.js';
+import { SweepfallState } from './states/SweepfallState.js';
 
 
 export class CharacterFSM extends FiniteStateMachine {
@@ -22,6 +23,7 @@ export class CharacterFSM extends FiniteStateMachine {
         this._AddState('punch', PunchState);
         this._AddState('death', DeathState);
         this._AddState('walkback', WalkbackState);
+        this._AddState('sweepfall', SweepfallState);
     }
 };
 

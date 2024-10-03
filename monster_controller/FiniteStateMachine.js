@@ -2,13 +2,6 @@ export class FiniteStateMachine {
     constructor() {
         this._states = {};
         this._currentState = null;
-        this.canAttack = true;
-
-        setInterval(() => {
-            console.log(1);
-            
-            this.canAttack = !this.canAttack;
-        }, 3000);
     }
 
     _AddState(name, type) {
@@ -28,9 +21,9 @@ export class FiniteStateMachine {
         state.enter(prevState);
     }
 
-    Update(timeElapsed, name, distance) {
+    Update(timeElapsed, distance) {
         if (this._currentState) {
-            this._currentState.update(timeElapsed, name, distance);
+            this._currentState.update(timeElapsed, distance);
         }
     }
 };

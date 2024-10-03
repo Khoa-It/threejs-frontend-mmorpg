@@ -1,5 +1,6 @@
 import { DAMAGE } from "../../damage.js";
 import { Physic_Manager } from "../../modules/cannon_model_manager.js";
+import { State_Manager } from "../../modules/state_model_manager.js";
 import { State } from "./State.js";
 import * as THREE from 'three';
 
@@ -17,13 +18,14 @@ export class PunchState extends State {
     }
 
     handlePhysicAttack(){
-        Physic_Manager.model[this._parent.charName].isAttacking = true;
+        State_Manager.model[this._parent.charName].isAttacking = true;
         const playername = this._parent.charName;
+        
         for (const key in Physic_Manager.model) {
-            const element = Physic_Manager.model[key];
+            const element = Physic_Manager.model[key].body;
             if (key != playername && element.isCollision) {
-                element.isBeingAttacked = true;
-                element.decreaseHp = DAMAGE[this._parent.charName].punch;
+                State_Manager.model[key].isBeingAttacked = true;
+                State_Manager.model[key].damageReceived = DAMAGE[this._parent.charName].punch;        
             }
         }
     }

@@ -20,11 +20,11 @@ export class IdleState extends MonsterState {
     exit() {
     }
 
-    update(_, name = 'monster', distance = 1) {
+    update(_, distance = 1) {
 
         if (distance >= 0.4 && distance < 5) {
             this.fsm.SetState('walking');
-        } else if (distance <0.4 && this.fsm.canAttack){
+        } else if (distance < 0.4) {
             this.fsm.SetState('punch');
         } else {
             this.fsm.SetState('idle');

@@ -34,6 +34,7 @@ export const MODELS = {
         'punch' : '/assets/warrior/punch.glb',
         'death' : '/assets/warrior/death.glb',
         'walkback' : '/assets/warrior/walkback.glb',
+        'sweepfall' : '/assets/warrior/sweepfall.glb',
         'scale' : sc_arr(alphaScale.woman_warior),
         'position': [5,0,0],
         'physicSize': [0.1, 0.5, 0.1],
