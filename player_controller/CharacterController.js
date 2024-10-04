@@ -46,6 +46,7 @@ export class CharacterController {
         this.isBeingKnockedBack = false; // Cờ đánh dấu việc bị đánh bật
         this.knockbackForce = new THREE.Vector3(0, 0, 0); // Lực đánh bật
 
+
     }
 
     async loadModelFile(charName) {
@@ -154,9 +155,38 @@ export class CharacterController {
     }
 
 
+    performDash(deltaTime) {
+
+        if (this._input._keys.dash) {
+            State_Manager.model[this.charName].isDashing = true;
+            State_Manager.model[this.charName].dashTime = 0;
+        }else{
+            State_Manager.model[this.charName].isDashing = false;
+        }
+
+        const direction = new THREE.Vector3();
+        this._model.getWorldDirection(direction);
+        if (State_Manager.model[this.charName].isDashing) {
+            State_Manager.model[this.charName].dashTime += deltaTime;
+            if (State_Manager.model[this.charName].dashTime < State_Manager.model[this.charName].dashDuration) {
+                // Nhân hướng với tốc độ và deltaTime để có khoảng cách di chuyển
+                const dashDistance = State_Manager.model[this.charName].dashSpeed * deltaTime ;
+                this._model.position.add(direction.multiplyScalar(dashDistance));
+            } else {
+                State_Manager.model[this.charName].isDashing = false; // Kết thúc dash khi vượt quá thời gian
+            }
+        }
+
+    }
 
 
     updatePos(timeInSeconds) {
+        console.log(Physic_Manager.model[this.charName].isCollision);
+        
+        if (Physic_Manager.model[this.charName].body.isCollision) {
+            this._input._keys.forward = false;
+        }
+
         const currentState = this._stateMachine._currentState;
         if (currentState.Name != 'punch' &&
             currentState.Name != 'run' &&
@@ -238,9 +268,7 @@ export class CharacterController {
             return;
         }
 
-        if (Physic_Manager.model[this.charName].isCollision) {
-            this._input._keys.forward = false;
-        }
+        this.performDash(timeInSeconds);
 
         this._stateMachine.Update(timeInSeconds, this._input);
         this.updatePos(timeInSeconds);

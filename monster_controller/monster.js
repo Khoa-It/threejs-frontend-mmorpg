@@ -44,10 +44,10 @@ export class Monster {
         let countLoadTime = 0;
 
         const detailTask = async (glb, index) => {
-            countLoadTime += 1;      
+            countLoadTime += 1;
             const anim_name = animNames[index];
             this.animations[anim_name] = this.mixer.clipAction(glb.animations[0]);
-            if(countLoadTime == files.length) afterLoad();
+            if (countLoadTime == files.length) afterLoad();
         }
 
         const othersLoad = async (url, index) => {
@@ -81,37 +81,49 @@ export class Monster {
         });
 
         await Promise.all(files.map((url, index) => {
-            return new Promise( async (resolve) => {
+            return new Promise(async (resolve) => {
                 await othersLoad(url, index);
                 resolve();
             });
         }));
     }
 
-    calculatorDistanceWithPlayer(){
+    calculatorDistanceWithPlayer() {
         const monster = GraphicModelManager.model[this.name];
         const player = GraphicModelManager.model['woman_warior'];
         const distanceWithPlayer = monster.position.distanceTo(player.position);
         return distanceWithPlayer;
     }
 
-    updateHp(){
+    lookAtPlayer() {
+        if (this.hp == 0) return;
+
+        setTimeout(() => {
+            let target = new THREE.Vector3();
+            target.copy(GraphicModelManager.model['woman_warior'].position);
+            AI_Entity.info[this.fsm.name].graphicModel.lookAt(target);
+        }, 2000)
+
+    }
+
+    updateHp() {
         if (State_Manager.model[this.name].isBeingAttacked) {
             this.hp -= State_Manager.model[this.name].damageReceived;
-            if(this.hp < 0) this.hp = 0;
+            if (this.hp < 0) this.hp = 0;
             this.healthbar.setHp(this.hp);
             State_Manager.model[this.name].damageReceived = 0;
             State_Manager.model[this.name].isBeingAttacked = false;
+            this.lookAtPlayer();
         }
         if (this.hp == 0) {
             this.fsm.SetState('death');
         }
     }
 
-    update(time){
-        if(!this.isLoaded) return;
-        if(!this.fsm._currentState) return;
-        if(!State_Manager.isPlayerLoaded()) return;
+    update(time) {
+        if (!this.isLoaded) return;
+        if (!this.fsm._currentState) return;
+        if (!State_Manager.isPlayerLoaded()) return;
         this.mixer.update(time);
         this.fsm.Update(time, this.calculatorDistanceWithPlayer());
         AI_Entity.updateByKey(time, 'monster');

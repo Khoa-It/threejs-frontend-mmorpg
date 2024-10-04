@@ -8,6 +8,7 @@ export class CharacterControllerInput {
             left: false,
             right: false,
             space: false,
+            dash: false,
         }
         document.addEventListener('keydown', (e) => this.onKeyDown(e));
         document.addEventListener('keyup', (e) => this.onKeyUp(e));
@@ -29,11 +30,14 @@ export class CharacterControllerInput {
             case 32:
                 this._keys.space = false;
                 break;
+            case 88:
+                this._keys.dash = false;
             default:
                 break;
         }
     }
     onKeyDown(event) {
+        console.log(event.keyCode);
         switch (event.keyCode) {
             case 65:
                 this._keys.left = true;
@@ -42,7 +46,7 @@ export class CharacterControllerInput {
                 this._keys.backward = true;
                 break;
             case 87:
-                if(Physic_Manager.model['woman_warior'].isCollision)
+                if (Physic_Manager.model['woman_warior'].isCollision)
                     this._keys.forward = false;
                 else
                     this._keys.forward = true;
@@ -53,6 +57,8 @@ export class CharacterControllerInput {
             case 32:
                 this._keys.space = true;
                 break;
+            case 88:
+                this._keys.dash = true;
             default:
                 break;
         }

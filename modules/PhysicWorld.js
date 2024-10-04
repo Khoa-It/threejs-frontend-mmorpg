@@ -12,6 +12,7 @@ export default class PhysicWorld {
             const { bodyA, bodyB } = event;
             bodyA.isCollision = true;
             bodyB.isCollision = true;
+            
         });
 
         this.world.addEventListener('endContact', (event) => {

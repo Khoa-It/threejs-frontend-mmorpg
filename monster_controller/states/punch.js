@@ -42,7 +42,6 @@ export class PunchState extends MonsterState {
 
     handlePhysicAttack() {
         if (this.isHandlePhysicAttackedComplete) return;
-
         State_Manager.model[this.fsm.name].isAttacking = true;
         for (const key in Physic_Manager.model) {
             const element = Physic_Manager.model[key].body;
@@ -53,6 +52,8 @@ export class PunchState extends MonsterState {
             }
         }
     }
+
+    
 
     async enter(prevState) {
         const curAction = this.fsm.proxy.animations['punch'];
