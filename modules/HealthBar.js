@@ -45,7 +45,6 @@ export class BossHealthBar {
     }
 
     setHp(val) {
-        console.log(this.top_hp_selector);
         $(this.top_hp_selector).animate({ width: `${val}%` }, 1000);
     }
 }

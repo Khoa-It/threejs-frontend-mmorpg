@@ -46,7 +46,14 @@ export class CharacterController {
         this.isBeingKnockedBack = false; // Cờ đánh dấu việc bị đánh bật
         this.knockbackForce = new THREE.Vector3(0, 0, 0); // Lực đánh bật
 
+        this.rotationConfiguration();
+        
+    }
 
+    rotationConfiguration(){
+        this.isRotating = false;
+        this.targetRotation = 0;
+        this.rotationSpeed = 55;
     }
 
     async loadModelFile(charName) {
@@ -142,10 +149,8 @@ export class CharacterController {
             const knockbackVelocity = knockbackDirection.multiplyScalar(this.knockbackForce.z * timeInSeconds);
 
             controlObject.position.add(knockbackVelocity);
-
             // Giảm dần lực đánh bật
             this.knockbackForce.z -= 0.1; // Giảm tốc dần, tùy chỉnh giá trị để phù hợp
-
             // Ngừng đánh bật khi lực nhỏ hơn một ngưỡng nhất định
             if (this.knockbackForce.z < 0) {
                 this.isBeingKnockedBack = false;
@@ -154,13 +159,32 @@ export class CharacterController {
         }
     }
 
+    afterDash(condition = true){
+        if (condition) {
+            this.isRotating = true;
+            this.targetRotation = this._model.rotation.y + Math.PI;           
+        }
+    }
+
+    updateRotation(deltaTime){
+        if (this.isRotating) {
+            const currentRotation = this._model.rotation.y;
+            this._model.rotation.y = THREE.MathUtils.lerp(currentRotation, this.targetRotation, this.rotationSpeed * deltaTime);
+            if (Math.abs(this._model.rotation.y - this.targetRotation) < 0.5) {
+                this.isRotating = false;
+            }
+        }else{
+            this.targetRotation = 0;
+            return;
+        }
+    }
 
     performDash(deltaTime) {
-
         if (this._input._keys.dash) {
             State_Manager.model[this.charName].isDashing = true;
             State_Manager.model[this.charName].dashTime = 0;
         }else{
+            this.afterDash(State_Manager.model[this.charName].isDashing);
             State_Manager.model[this.charName].isDashing = false;
         }
 
@@ -169,20 +193,17 @@ export class CharacterController {
         if (State_Manager.model[this.charName].isDashing) {
             State_Manager.model[this.charName].dashTime += deltaTime;
             if (State_Manager.model[this.charName].dashTime < State_Manager.model[this.charName].dashDuration) {
-                // Nhân hướng với tốc độ và deltaTime để có khoảng cách di chuyển
                 const dashDistance = State_Manager.model[this.charName].dashSpeed * deltaTime ;
                 this._model.position.add(direction.multiplyScalar(dashDistance));
             } else {
-                State_Manager.model[this.charName].isDashing = false; // Kết thúc dash khi vượt quá thời gian
+                State_Manager.model[this.charName].isDashing = false;
+                
             }
-        }
-
+        }  
     }
 
 
-    updatePos(timeInSeconds) {
-        console.log(Physic_Manager.model[this.charName].isCollision);
-        
+    updatePos(timeInSeconds) {        
         if (Physic_Manager.model[this.charName].body.isCollision) {
             this._input._keys.forward = false;
         }
@@ -267,10 +288,9 @@ export class CharacterController {
         if (!this._stateMachine._currentState) {
             return;
         }
-
-        this.performDash(timeInSeconds);
-
         this._stateMachine.Update(timeInSeconds, this._input);
+        this.performDash(timeInSeconds);
+        this.updateRotation(timeInSeconds);
         this.updatePos(timeInSeconds);
         this.updateHp(timeInSeconds);
         Physic_Manager.updateByKey(this.charName);

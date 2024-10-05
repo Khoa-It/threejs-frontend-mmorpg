@@ -37,7 +37,7 @@ export class CharacterControllerInput {
         }
     }
     onKeyDown(event) {
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
         switch (event.keyCode) {
             case 65:
                 this._keys.left = true;
@@ -46,10 +46,7 @@ export class CharacterControllerInput {
                 this._keys.backward = true;
                 break;
             case 87:
-                if (Physic_Manager.model['woman_warior'].isCollision)
-                    this._keys.forward = false;
-                else
-                    this._keys.forward = true;
+                this._keys.forward = true;
                 break;
             case 68:
                 this._keys.right = true;
