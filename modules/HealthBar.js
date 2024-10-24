@@ -41,10 +41,13 @@ export class BossHealthBar {
     <div class="top-healthbar">
       <div id="${name}-top-hp-healthbar"></div>
     </div>`);
-    this.top_hp_selector = `#${name}-top-hp-healthbar`;
+        this.top_hp_selector = `#${name}-top-hp-healthbar`;
     }
 
     setHp(val) {
         $(this.top_hp_selector).animate({ width: `${val}%` }, 1000);
+    }
+    remove() {
+        $('#monster-info').html('');
     }
 }

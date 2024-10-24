@@ -11,6 +11,7 @@ import PhysicWorld from "./modules/PhysicWorld.js";
 import { FireBall } from "./effect/fire.js";
 import { Character } from "./player_controller/character.js";
 import { BrowserInfo } from "./event/info.js";
+import { GraphicModelManager } from "./modules/three_model_manager.js";
 // import { fireBall } from "./effect/fire.js";
 
 
@@ -24,7 +25,7 @@ const physicWorld = new PhysicWorld();
 // const fireBall = new FireBall({graphicWorld});
 const map = new Map(graphicWorld);
 const character = new Character(graphicWorld, 'woman_warior', physicWorld);
-const monster = new Monster(graphicWorld, physicWorld);
+let monster = new Monster(graphicWorld, physicWorld);
 
 // const stats = new Stats();
 // stats.domElement.className = 'stats-panel'; // Thêm lớp CSS
@@ -42,8 +43,8 @@ function refreshWorld() {
     // stats.update();
     // fireBall.update();
     character.animate(time);
-    monster.update(time);
     physicWorld.update();
+    monster.update(time);
     graphicWorld.renderer.render( graphicWorld.scene, graphicWorld.camera );
 }
 graphicWorld.renderer.setAnimationLoop(refreshWorld);

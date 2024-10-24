@@ -40,5 +40,14 @@ export class AI_Entity {
         this.info[sourceKey].isSeekBehavior = false; 
         this.info[sourceKey].behavior = null;
     }
+
+    static removeAIController(key) {
+        if (!this.info[key]) return;
+        if (this.info[key].isSeekBehavior) {
+            this.removeSeekBehavior(key);
+        }
+        this.entityManager.remove(this.info[key].aiModel);
+        delete this.info[key];
+    }
     
 }

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GraphicModelManager } from './three_model_manager.js';
 
 export class GraphicWorld {
     constructor(){
@@ -23,4 +24,8 @@ export class GraphicWorld {
         // this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
     }
     
+    removeModel(key){
+        this.scene.remove(GraphicModelManager.getGraphicModelByKey(key));
+        GraphicModelManager.removeGraphicModel(key);
+    }
 }

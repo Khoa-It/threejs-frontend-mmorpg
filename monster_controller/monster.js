@@ -8,12 +8,13 @@ import PhysicWorld from "../modules/PhysicWorld.js";
 import { BossHealthBar } from "../modules/HealthBar.js";
 import { Physic_Manager } from "../modules/cannon_model_manager.js";
 import { State_Manager } from "../modules/state_model_manager.js";
+import { GraphicWorld } from "../modules/GraphicWorld.js";
 export class Monster {
-    constructor(enviroment = { scene: new THREE.Scene() }, physicWorld = new PhysicWorld()) {
+    constructor(enviroment = new GraphicWorld(), physicWorld = new PhysicWorld()) {
         this.healthbar = new BossHealthBar('monster');
         this.hp = 100;
         this.loader = new GLTFLoader();
-        this.enviroment = enviroment;
+        this.graphicWorld = enviroment;
         this.physicWorld = physicWorld;
         this.mixer = null;
         this.animations = {};
@@ -21,6 +22,7 @@ export class Monster {
         this.isLoaded = false;
         this.name = 'monster';
         this.loadModel();
+        this.isLive = true;
     }
 
     async loadModel() {
@@ -61,7 +63,7 @@ export class Monster {
             model.position.set(...MODELS[this.name].position);
             globalmodel = model;
             this.mixer = new THREE.AnimationMixer(model);
-            this.enviroment.scene.add(model);
+            this.graphicWorld.scene.add(model);
         }
 
         const afterLoad = async () => {
@@ -117,10 +119,52 @@ export class Monster {
         }
         if (this.hp == 0) {
             this.fsm.SetState('death');
+            setTimeout(() => {
+                this.remove();
+            }, 2000);
+        }
+    }
+
+    dispose3DObject(){
+        if (this.model) {
+            this.graphicWorld.scene.remove(this.model);
+            if (this.model && this.model.traverse) {
+                this.model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.geometry.dispose();
+                        child.material.dispose();
+                    }
+                });
+            }
+            this.model = null;
+        }
+    }
+    disposeMixer(){
+        if (this.mixer) {
+            this.mixer.stopAllAction();
+            this.mixer.uncacheRoot(this.mixer.getRoot());
+            this.mixer = null;
+        }
+    }
+
+    disposeOtherEntity(){
+        this.physicWorld.removeBody(this.name);
+        this.graphicWorld.removeModel(this.name);
+        AI_Entity.removeAIController(this.name);
+    }
+
+    remove() {
+        const monsterModel = GraphicModelManager.model[this.name];
+        if (monsterModel) {
+            this.disposeOtherEntity();
+            this.dispose3DObject();
+            this.healthbar.remove();
+            this.isLive = false;
         }
     }
 
     update(time) {
+        if (!this.isLive) return;
         if (!this.isLoaded) return;
         if (!this.fsm._currentState) return;
         if (!State_Manager.isPlayerLoaded()) return;

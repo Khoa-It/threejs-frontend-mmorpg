@@ -12,14 +12,25 @@ export default class PhysicWorld {
             const { bodyA, bodyB } = event;
             bodyA.isCollision = true;
             bodyB.isCollision = true;
+
+            if (bodyA && typeof bodyA.isCollision !== 'undefined') {
+                bodyA.isCollision = true;
+            }
             
+            if (bodyB && typeof bodyB.isCollision !== 'undefined') {
+                bodyB.isCollision = true;
+            }
         });
 
         this.world.addEventListener('endContact', (event) => {
             const { bodyA, bodyB } = event; 
-            bodyA.isCollision = false;
-            bodyB.isCollision = false;
-
+            if (bodyA && typeof bodyA.isCollision !== 'undefined') {
+                bodyA.isCollision = false;
+            }
+            
+            if (bodyB && typeof bodyB.isCollision !== 'undefined') {
+                bodyB.isCollision = false;
+            }
         });
     }
 
@@ -27,6 +38,14 @@ export default class PhysicWorld {
         const body = Physic_Manager.addPhysicModel(key, bodySize);
         this.world.addBody(body);
         return body;
+    }
+
+    removeBody(key) {
+        const body = Physic_Manager.getPhysicModelBody(key);
+        if (body) {
+            this.world.removeBody(body);
+            Physic_Manager.removePhysicModel(key);
+        }
     }
 
     update() {

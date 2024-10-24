@@ -24,6 +24,14 @@ export class Physic_Manager {
         return Physic_Manager.model[key].body;
     }
 
+    static getPhysicModelBody(key){
+        return Physic_Manager.model[key].body;
+    }
+
+    static removePhysicModel(key) {
+        delete Physic_Manager.model[key]; // Xóa body khỏi bộ quản lý
+    }
+
     static updateByKey(key) {
         Physic_Manager.model[key].body.position.copy(GraphicModelManager.model[key].position);
     }
