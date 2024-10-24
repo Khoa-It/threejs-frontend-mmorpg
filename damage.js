@@ -1,9 +1,9 @@
 export const DAMAGE = {
     woman_warior: {
-        punch: 10,
+        normal_attack: 100,
     },
 
     monster: {
-        punch: 10,
+        normal_attack: 10,
     }
 }

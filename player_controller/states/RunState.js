@@ -33,7 +33,7 @@ export class RunState extends State {
         if (input._keys.forward) {
             this._parent.SetState('run');
         } else if (input._keys.space) {
-            this._parent.SetState('punch');
+            this._parent.SetState('normalskill');
         } else if(input._keys.backward){
             this._parent.SetState('walkback');  
         } else{

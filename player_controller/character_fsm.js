@@ -4,7 +4,7 @@ import { FiniteStateMachine } from './FiniteStateMachine.js';
 import { IdleState } from './states/IdleState.js';
 import { RunState } from './states/RunState.js';
 import { DeathState } from './states/DeathState.js';
-import { PunchState } from './states/PunchState.js';
+import { NormalSkillState } from './states/NormalSkillState.js';
 import { WalkbackState } from './states/WalkbackState.js';
 import { SweepfallState } from './states/SweepfallState.js';
 
@@ -20,7 +20,7 @@ export class CharacterFSM extends FiniteStateMachine {
     _Init() {
         this._AddState('idle', IdleState);
         this._AddState('run', RunState);
-        this._AddState('punch', PunchState);
+        this._AddState('normalskill', NormalSkillState);
         this._AddState('death', DeathState);
         this._AddState('walkback', WalkbackState);
         this._AddState('sweepfall', SweepfallState);

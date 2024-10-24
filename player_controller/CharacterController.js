@@ -60,13 +60,13 @@ export class CharacterController {
 
         const files = [
             MODELS[charName]['run'],
-            MODELS[charName]['punch'],
+            MODELS[charName]['normalskill'],
             MODELS[charName]['death'],
             MODELS[charName]['walkback'],
             MODELS[charName]['sweepfall'],
         ];
 
-        const ani_name = ['run', 'punch', 'death', 'walkback', 'sweepfall'];
+        const ani_name = ['run', 'normalskill', 'death', 'walkback', 'sweepfall'];
 
         const onLoadStandModel = (glb) => {
             const model = glb.scene;

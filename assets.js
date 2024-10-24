@@ -4,6 +4,7 @@ const alphaScale = {
     woman_warior: 0.2,
     rock: 1/9,
     monster: 1/3,
+    magic_circle: 4/10,
 }
 
 function sc_arr(scale) {
@@ -31,7 +32,7 @@ export const MODELS = {
         'model' : '/assets/warrior/model.glb',
         'idle' : '/assets/warrior/idle.glb',
         'run' : '/assets/warrior/run.glb',
-        'punch' : '/assets/warrior/punch.glb',
+        'normalskill' : '/assets/warrior/punch.glb',
         'death' : '/assets/warrior/death.glb',
         'walkback' : '/assets/warrior/walkback.glb',
         'sweepfall' : '/assets/warrior/sweepfall.glb',
@@ -52,7 +53,7 @@ export const MODELS = {
     'monster' : {
         'model': '/assets/monster/model.glb',
         'idle': '/assets/monster/idle.glb',
-        'punch': '/assets/monster/punch.glb',
+        'normalskill': '/assets/monster/punch.glb',
         'kick': '/assets/monster/kick.glb',
         'defend': '/assets/monster/defend.glb',
         'death': '/assets/monster/death.glb',
@@ -63,7 +64,13 @@ export const MODELS = {
     },
     'items' : {
         'bag': '/assets/items/bag.png',
-        
+    },
+    'magic_circle': {
+        'fire': '/assets/magic_circle/fire_cirle.glb',
+        'scale': sc_arr(alphaScale.magic_circle),
+        'position': [0,1,0],
+    },
+    'music' : {
+        'fantasy_world' : '/assets/music/fantasyworld.mp3'
     }
-
 }

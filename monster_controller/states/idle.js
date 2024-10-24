@@ -25,7 +25,7 @@ export class IdleState extends MonsterState {
         if (distance >= 0.4 && distance < 5) {
             this.fsm.SetState('walking');
         } else if (distance < 0.4) {
-            this.fsm.SetState('punch');
+            this.fsm.SetState('normalskill');
         } else {
             this.fsm.SetState('idle');
         }

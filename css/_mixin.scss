@@ -8,13 +8,31 @@
     transform: translateY(-50%);
 }
 
-@mixin flex-row{
+@mixin flex-row {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-@mixin flex-col{
+@mixin flex-col {
     display: flex;
     flex-direction: column;
+}
+
+@mixin mix-input {
+    width: 70%;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: rgba($color: white, $alpha: 0.6);
+}
+
+@mixin mix-button {
+    padding: 10px 15px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    &:hover{cursor: pointer;}
 }

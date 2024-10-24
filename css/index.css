@@ -176,4 +176,64 @@ canvas {
   width: 6%;
   height: auto;
   margin-right: 10px;
+}
+
+.body-login {
+  background-image: url("/assets/loginform/background.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.body-login .login-form {
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 35%;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.body-login .login-form > * {
+  margin-bottom: 20px;
+}
+.body-login .login-form:last-child {
+  margin-bottom: 0;
+}
+.body-login .login-form h2 {
+  color: white;
+}
+.body-login .login-form input {
+  width: 70%;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: rgb(223, 31, 219);
+  font-weight: bold;
+}
+.body-login .login-form button {
+  padding: 10px 15px;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(223, 31, 219);
+}
+.body-login .login-form button:hover {
+  cursor: pointer;
+}
+.body-login .login-form .navigation {
+  font-weight: bold;
+  color: white;
+}
+.body-login .login-form .navigation a {
+  text-decoration: none;
+  color: rgb(223, 31, 219);
 }/*# sourceMappingURL=index.css.map */

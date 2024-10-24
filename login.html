@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+          }
+        }
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/yuka@0.7.8/build/yuka.min.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/7/Stats.js" integrity="sha512-+nNqDCQd6FiN/mQKnpfI/UswnfuG/cjHZbv+amV/2PLiuGgN8+D5dKzR4PqnSY5pZBExGavZz+FdjIeI9WgpKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body class="body-login">
+    <form action="" method="post" class="login-form">
+        <h2>Đăng nhập</h2>
+        <input type="text" name="" id="email" placeholder="email">
+        <input type="password" name="" id="password" placeholder="password">
+        <button id="submit">Đăng nhập</button>
+        <div class="navigation">Bạn chưa có tài khoản ? <a href="">Đăng ký</a></div>
+    </form>
+</body>
+<script type="module" src="./event/login.js"></script>
+</html>

@@ -26,7 +26,7 @@ export class Monster {
     async loadModel() {
         const files = [
             MODELS['monster']['walking'],
-            MODELS['monster']['punch'],
+            MODELS['monster']['normalskill'],
             MODELS['monster']['death'],
             MODELS['monster']['kick'],
             MODELS['monster']['idle'],
@@ -35,7 +35,7 @@ export class Monster {
 
         const animNames = [
             'walking',
-            'punch',
+            'normalskill',
             'death',
             'kick',
             'idle',
