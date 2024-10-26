@@ -8,7 +8,7 @@ export class Character {
         this.controller = new CharacterController(environment, charName, physicWorld);
     }
 
-    animate(time) {
+    update(time) {
         if (this.controller._mixer) {
             this.controller._mixer.update(time);
             this.controller.Update(time);

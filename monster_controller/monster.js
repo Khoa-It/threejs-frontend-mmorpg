@@ -9,6 +9,7 @@ import { BossHealthBar } from "../modules/HealthBar.js";
 import { Physic_Manager } from "../modules/cannon_model_manager.js";
 import { State_Manager } from "../modules/state_model_manager.js";
 import { GraphicWorld } from "../modules/GraphicWorld.js";
+import { LifecycleManager } from "../modules/LifecycleManager.js";
 export class Monster {
     constructor(enviroment = new GraphicWorld(), physicWorld = new PhysicWorld()) {
         this.healthbar = new BossHealthBar('monster');
@@ -120,7 +121,7 @@ export class Monster {
         if (this.hp == 0) {
             this.fsm.SetState('death');
             setTimeout(() => {
-                this.remove();
+                LifecycleManager.deleteComponent(this.name);
             }, 2000);
         }
     }
@@ -153,7 +154,7 @@ export class Monster {
         AI_Entity.removeAIController(this.name);
     }
 
-    remove() {
+    cleanUp() {
         const monsterModel = GraphicModelManager.model[this.name];
         if (monsterModel) {
             this.disposeOtherEntity();
