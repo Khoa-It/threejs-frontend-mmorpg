@@ -236,4 +236,98 @@ canvas {
 .body-login .login-form .navigation a {
   text-decoration: none;
   color: rgb(223, 31, 219);
+}
+
+.bag {
+  box-sizing: border-box;
+  position: absolute;
+  background-image: url("/assets/equipments/background.jfif");
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 2;
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.bag .bag-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 700px;
+  flex-wrap: wrap;
+}
+.bag .bag-left .item {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  transition: all ease 0.1s;
+  margin: 5px;
+}
+.bag .bag-left .item img {
+  display: block;
+  width: 90px;
+  height: 90px;
+}
+.bag .bag-left .item:hover {
+  border: 4px solid white;
+  border-radius: 20px;
+}
+.bag .bag-right {
+  width: 300px;
+}
+.bag .bag-right .name-item {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: white;
+  padding: 5px;
+  background-color: rgba(215, 182, 73, 0.5);
+  color: white;
+}
+.bag .bag-right .top-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  background-color: #dcc169;
+}
+.bag .bag-right .top-info-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bag .bag-right .top-info-left-top {
+  margin-bottom: 30px;
+}
+.bag .bag-right .top-info-left-top p {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.bag .bag-right .top-info-left-bottom .string {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.5);
+}
+.bag .bag-right .top-info-left-bottom .num {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+.bag-close-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: block;
+  width: 25px;
+  height: 25px;
 }/*# sourceMappingURL=index.css.map */
