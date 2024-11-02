@@ -33,7 +33,6 @@ LifecycleManager.components['monster'] = new Monster(graphicWorld, physicWorld);
 // document.body.appendChild(stats.domElement)
 
 
-
 ControlAndSystem.moveCameraAndLogInfo(graphicWorld.camera);
 
 let clock = new THREE.Clock();

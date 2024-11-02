@@ -1,3 +1,5 @@
+import { EquipmentManager } from "../manager_system/EquipmentManager.js";
+
 let selector = {
     bag: '#js-bag',
     open_bag_btn: '#js-bag-button',
@@ -16,4 +18,8 @@ $(document).ready(function () {
         e.preventDefault();
         $(selector.bag).hide();
     });
+
+    EquipmentManager.setAllItemHtml();
+    EquipmentManager.setDetailItemHtml();
+    EquipmentManager.setFirstItemDetailHtml();
 });
