@@ -10,6 +10,7 @@ import { Physic_Manager } from "../modules/cannon_model_manager.js";
 import { State_Manager } from "../modules/state_model_manager.js";
 import { GraphicWorld } from "../modules/GraphicWorld.js";
 import { LifecycleManager } from "../modules/LifecycleManager.js";
+import { EquipmentManager } from "../manager_system/EquipmentManager.js";
 export class Monster {
     constructor(enviroment = new GraphicWorld(), physicWorld = new PhysicWorld()) {
         this.healthbar = new BossHealthBar('monster');
@@ -161,6 +162,7 @@ export class Monster {
             this.dispose3DObject();
             this.healthbar.remove();
             this.isLive = false;
+            EquipmentManager.addEquipmentByMonster(this.name);
         }
     }
 

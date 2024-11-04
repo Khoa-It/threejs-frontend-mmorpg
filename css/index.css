@@ -252,12 +252,14 @@ canvas {
   display: flex;
   flex-direction: row;
   align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 .bag .bag-left {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   max-width: 700px;
   flex-wrap: wrap;
 }
@@ -271,6 +273,8 @@ canvas {
   width: 90px;
   height: 90px;
   transition: all ease 0.1s;
+  background-color: #d7b649;
+  border-radius: 15px;
   margin: 5px;
 }
 .bag .bag-left .item img {
@@ -323,6 +327,11 @@ canvas {
   font-weight: bold;
   color: white;
 }
+.bag .bag-right .top-info-right img {
+  display: block;
+  width: 130px;
+  height: 108px;
+}
 .bag-close-button {
   position: absolute;
   right: 10px;
@@ -330,4 +339,32 @@ canvas {
   display: block;
   width: 25px;
   height: 25px;
+}
+
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.notification-item {
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+.notification-item.show {
+  opacity: 1;
+}
+.notification-item.hidden {
+  opacity: 0;
+}
+.notification-item-equipname {
+  color: #d7b649;
 }/*# sourceMappingURL=index.css.map */

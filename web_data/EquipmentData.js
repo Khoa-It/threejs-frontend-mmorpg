@@ -8,8 +8,20 @@ export const EQUIPMENT_DATA = {
         main_value: 1000,
         main_property: 'Tấn công',
         quantity: {
-            1: 2,
-            2: 3,
-        }
+            
+        },
+        monsters : ['monster'],
     },
+    2: {
+        group_name: 'Dạ hồn chúc phúc',
+        name: 'Bí Điển Obsidian',
+        img: '/assets/equipments/obsidian_flower.webp',
+        atk: 1000,
+        main_value: 1000,
+        main_property: 'Tấn công',
+        quantity: {
+            
+        },
+        monsters : ['monster'],
+    }
 }
