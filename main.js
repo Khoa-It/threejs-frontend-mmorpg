@@ -13,6 +13,7 @@ import { Character } from "./player_controller/character.js";
 import { BrowserInfo } from "./event/info.js";
 import { GraphicModelManager } from "./modules/three_model_manager.js";
 import { LifecycleManager } from "./modules/LifecycleManager.js";
+import { NPC } from "./npc_controller/npc.js";
 // import { fireBall } from "./effect/fire.js";
 
 
@@ -25,12 +26,15 @@ const physicWorld = new PhysicWorld();
 
 // const fireBall = new FireBall({graphicWorld});
 const map = new Map(graphicWorld);
-LifecycleManager.components['woman_warior'] = new Character(graphicWorld, 'woman_warior', physicWorld);
-LifecycleManager.components['monster'] = new Monster(graphicWorld, physicWorld);
+LifecycleManager.addComponent('woman_warior',new Character(graphicWorld, 'woman_warior', physicWorld));
+LifecycleManager.addComponent('npc1', new NPC(graphicWorld, 'npc1'));
 
+// LifecycleManager.components['monster'] = new Monster(graphicWorld, physicWorld);
 // const stats = new Stats();
 // stats.domElement.className = 'stats-panel'; // Thêm lớp CSS
 // document.body.appendChild(stats.domElement)
+
+// ControlAndSystem.logInfoByUserMouse(graphicWorld.camera, graphicWorld.scene);
 
 
 ControlAndSystem.moveCameraAndLogInfo(graphicWorld.camera);

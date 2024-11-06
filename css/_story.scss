@@ -1,0 +1,65 @@
+.story {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: rgba($color: #000000, $alpha: 0.85);
+    z-index: 2;
+    padding: 20px;
+    &-owner{
+        position: absolute;
+        top: -15px;
+        left: 10px;
+        display: block;
+        border-radius: 5px;
+        padding: 5px 10px;
+        background-color: rgba($color: #000000, $alpha: 0.85);
+        color: rgb(252, 237, 66);
+        font-weight: bold;
+    }
+    &-content{
+        color: white;
+        font-weight: bold;
+    }
+    button{
+        background: none;
+        border: none;
+        padding: 0;
+        position: absolute;
+        bottom: 10px;
+        @include centerX;
+        img{
+            display: block;
+            width: 20px;
+            height: auto;
+        }
+    }
+
+    &.show{
+        opacity: 1;
+    }
+    &.hide{
+        opacity: 0;
+    }
+}
+
+.communicated-notification{
+    @include flex-row;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    padding: 10px 20px;
+    p{
+        color: white;
+        margin-right: 20px;
+    }
+    div{
+        padding: 5px 15px;
+        border-radius: 5px;
+        background-color: white;
+    }
+}

@@ -5,6 +5,7 @@ const alphaScale = {
     rock: 1/9,
     monster: 1/3,
     magic_circle: 4/10,
+    joan: 3/10,
 }
 
 function sc_arr(scale) {
@@ -71,6 +72,11 @@ export const MODELS = {
         'position': [0,1,0],
     },
     'music' : {
-        'fantasy_world' : '/assets/music/fantasyworld.mp3'
+        'fantasy_world' : '/assets/music/fantasyworld.mp3',
+    },
+    'npc1' : {
+        'url' : '/assets/Joan/joan.glb',
+        'position' : [0.3833148552944432,0,-1.335972254454855],
+        'scale' : sc_arr(alphaScale.joan),
     }
 }

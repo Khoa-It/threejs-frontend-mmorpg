@@ -367,4 +367,72 @@ canvas {
 }
 .notification-item-equipname {
   color: #d7b649;
+}
+
+.story {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 2;
+  padding: 20px;
+}
+.story-owner {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  display: block;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: rgb(252, 237, 66);
+  font-weight: bold;
+}
+.story-content {
+  color: white;
+  font-weight: bold;
+}
+.story button {
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.story button img {
+  display: block;
+  width: 20px;
+  height: auto;
+}
+.story.show {
+  opacity: 1;
+}
+.story.hide {
+  opacity: 0;
+}
+
+.communicated-notification {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+}
+.communicated-notification p {
+  color: white;
+  margin-right: 20px;
+}
+.communicated-notification div {
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: white;
 }/*# sourceMappingURL=index.css.map */
