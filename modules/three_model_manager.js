@@ -17,4 +17,14 @@ export class GraphicModelManager {
         GraphicModelManager.model[key] = model;
     }
 
+    static isAllKeyExisted(arr_key = []){
+        return arr_key.every((key) => {
+            return GraphicModelManager.model[key] != undefined;
+        })
+    }
+
+    static checkKeyExisted(key){
+        return GraphicModelManager.model[key] != undefined;
+    }
+
 }

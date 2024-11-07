@@ -1,5 +1,8 @@
 import { MODELS } from "../assets.js";
+import { DistanceManager } from "../manager_system/DistanceManager.js";
+import { Notification } from "../manager_system/NotificationManager.js";
 import { NpcManager } from "../manager_system/NpcManager.js";
+import { UserManager } from "../manager_system/UserManager.js";
 import { ModelLoader } from "../modules/ModelLoader.js";
 import { GraphicModelManager } from "../modules/three_model_manager.js";
 
@@ -19,8 +22,9 @@ export class NPC {
 
         this.name = NpcManager.getNpcNameById(id);
         this.story = NpcManager.getNpcStoryById(id);
+
+        this.notification = new Notification(`${this.name}`, 0, 0.5, id);
         this.selector = {
-            notification: '.communicated-notification',
             story_owner: '#js-story-owner',
             story_content: '#js-story-content',
             story: '.story',
@@ -33,13 +37,11 @@ export class NPC {
         this.setEvent();
     }
 
-
-
     setEvent() {
         document.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() == 'f' && this.statusChildComponent.notification) {
-                $(this.selector.notification).remove();
-                this.showStory()
+            if (e.key.toLowerCase() == 'f' && this.notification.status) {
+                this.notification.hide();
+                this.showStory();
                 this.statusChildComponent.story = true;
             }
         })
@@ -54,23 +56,6 @@ export class NPC {
         let result = checkKeys.every((key) => GraphicModelManager.model[key] != undefined);
         return result;
     }
-
-    distanceWithPlayer() {
-        const me = GraphicModelManager.model[this.id].position;
-        const other = GraphicModelManager.model['woman_warior'].position;
-        return Math.abs(me.distanceTo(other));
-    }
-
-    showComunicatedNotification() {
-        if (this.statusChildComponent.notification) return;
-        const content = `<div class="communicated-notification">
-      <p>${this.name}</p> <div>F</div>
-    </div>`;
-        $('body').append(content);
-        this.statusChildComponent.notification = true;
-    }
-
-
 
     showStory() {
         console.log('click');
@@ -92,14 +77,7 @@ export class NPC {
 
     update(deltaTime) {
         if (!this.isAllConditionTrue()) return;
-        const distance = this.distanceWithPlayer();
-        if (distance > 0 && distance < 0.5) {
-            this.showComunicatedNotification();
-            this.statusChildComponent.notification = true;
-        } else {
-            this.statusChildComponent.notification = false;
-            let notification = $(this.selector.notification);
-            if(notification) $(notification).remove();
-        }
+        const distance = DistanceManager.calculateDistance(this.id, UserManager.getCurrentCharId());
+        this.notification.update(distance);
     }
 }

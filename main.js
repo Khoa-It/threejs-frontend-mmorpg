@@ -14,6 +14,7 @@ import { BrowserInfo } from "./event/info.js";
 import { GraphicModelManager } from "./modules/three_model_manager.js";
 import { LifecycleManager } from "./modules/LifecycleManager.js";
 import { NPC } from "./npc_controller/npc.js";
+import { Arena } from "./modules/Arena.js";
 // import { fireBall } from "./effect/fire.js";
 
 
@@ -28,7 +29,7 @@ const physicWorld = new PhysicWorld();
 const map = new Map(graphicWorld);
 LifecycleManager.addComponent('woman_warior',new Character(graphicWorld, 'woman_warior', physicWorld));
 LifecycleManager.addComponent('npc1', new NPC(graphicWorld, 'npc1'));
-
+LifecycleManager.addComponent('arena', new Arena(graphicWorld, physicWorld));
 // LifecycleManager.components['monster'] = new Monster(graphicWorld, physicWorld);
 // const stats = new Stats();
 // stats.domElement.className = 'stats-panel'; // Thêm lớp CSS

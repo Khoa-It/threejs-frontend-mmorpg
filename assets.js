@@ -6,6 +6,7 @@ const alphaScale = {
     monster: 1/3,
     magic_circle: 4/10,
     joan: 3/10,
+    arena: 1/10,
 }
 
 function sc_arr(scale) {
@@ -60,7 +61,7 @@ export const MODELS = {
         'death': '/assets/monster/death.glb',
         'walking': '/assets/monster/walking.glb',
         'scale': sc_arr(alphaScale.monster),
-        'position': [1.0535467565403631, 0.0009999999999996698, 1.1560143062174264],
+        'position': [3.6832196515472893, 0, -5.8610014157611925],
         'physicSize': [0.2, 0.5, 0.2],
     },
     'items' : {
@@ -78,5 +79,10 @@ export const MODELS = {
         'url' : '/assets/Joan/joan.glb',
         'position' : [0.3833148552944432,0,-1.335972254454855],
         'scale' : sc_arr(alphaScale.joan),
-    }
+    },
+    'arena' : {
+        'url' : '/assets/arena/arena.glb',
+        'position' : [3.6832196515472893, 0, -5.8610014157611925],
+        'scale' : sc_arr(alphaScale.arena),
+    },
 }
