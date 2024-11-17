@@ -17,10 +17,10 @@ import { NPC } from "./npc_controller/npc.js";
 import { Arena } from "./modules/Arena.js";
 // import { fireBall } from "./effect/fire.js";
 
-
-// if (BrowserInfo.IS_LOGIN==false) {
-//     window.location.href = 'login.html';
-// }
+if (!sessionStorage.getItem("user")) {
+    // Chuyển hướng về trang login
+    window.location.href = "/login.html";
+}
 
 const graphicWorld = new GraphicWorld();
 const physicWorld = new PhysicWorld();

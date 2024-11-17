@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { MODELS } from "../assets.js";
 import { BrowserInfo } from "./info.js";
+import { ApiData } from '../web_data/ApiData.js';
 
 // const listener = new THREE.AudioListener();
 // const sound = new THREE.Audio(listener);
@@ -9,7 +10,7 @@ import { BrowserInfo } from "./info.js";
 
 $(document).ready(function () {
     console.log(BrowserInfo.IS_LOGIN);
-    
+
 
     // audioLoader.load(MODELS['music'].fantasy_world, function(buffer) {
     //     sound.setBuffer(buffer);
@@ -19,23 +20,30 @@ $(document).ready(function () {
     // });
 
     const loginFormSelector = {
-        email : '#email',
-        password : '#password',
-        sumitButton : '#submit',
+        email: '#email',
+        password: '#password',
+        submitButton: '#submit',
     }
 
-    function checkAccount(email, password) {
-        if (email == 'nguyendangkhoa@gmail.com' && password == '123456') {
+    async function checkAccount(email, password) {
+        try {
+            const result = await ApiData.getAccount(email, password);
+            const userData = result.data;
+            if (result.data == null) return false
+            sessionStorage.setItem("user", JSON.stringify(userData))
             return true;
+        } catch (error) {
+            console.log('exception in login.js file - check_account', error);
+            return false;
         }
-        return false;
+
     }
 
-    $(loginFormSelector.sumitButton).click(function (e) { 
+    $(loginFormSelector.submitButton).click(async function (e) {
         e.preventDefault();
         const email = $(loginFormSelector.email).val();
         const password = $(loginFormSelector.password).val();
-        
+
         if (!email) {
             alert('vui lòng email');
             return;
@@ -46,13 +54,11 @@ $(document).ready(function () {
             return;
         }
 
-        BrowserInfo.IS_LOGIN = checkAccount(email, password);
-
-        if (BrowserInfo.IS_LOGIN) {
-            console.log(BrowserInfo.IS_LOGIN);
+        const condition = await checkAccount(email, password);
+        if (condition) {
             window.location.href = 'index.html';
             return;
-        }else {
+        } else {
             alert('tài khoản mật khẩu chưa chính xác');
             return;
         }
