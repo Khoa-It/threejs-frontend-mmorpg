@@ -16,6 +16,9 @@ canvas{
         font-size: 15px !important;
     }
 }
+body{
+    overflow: hidden;
+}
 
 @import 'mixin';
 @import 'healthbar';
@@ -26,3 +29,4 @@ canvas{
 @import 'signup';
 @import 'bag';
 @import 'story';
+@import 'user_info';

@@ -25,6 +25,7 @@ export class ModelLoader {
             const model = gltf.scene;
             model.position.set(...position);
             model.scale.set(...scale);
+            model.frustumCulled = true;
             scene.add(model);
             if (init) {
                 init(model);

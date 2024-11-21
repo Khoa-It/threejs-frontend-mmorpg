@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   padding: 0;
   margin: 0;
@@ -15,6 +16,10 @@ canvas {
 }
 .stats-panel div {
   font-size: 15px !important;
+}
+
+body {
+  overflow: hidden;
 }
 
 .bottom-healthbar {
@@ -495,4 +500,54 @@ canvas {
   padding: 5px 15px;
   border-radius: 5px;
   background-color: white;
+}
+
+.user-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  width: 25%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  transition: transform 0.5s ease; /* Thêm hiệu ứng chuyển động 0.5s */
+}
+.user-info > * {
+  margin-bottom: 10px;
+}
+.user-info-title {
+  font-weight: bold;
+  color: rgb(85, 189, 237);
+  margin-bottom: 10px;
+}
+.user-info label {
+  color: gray;
+  font-weight: bold;
+}
+.user-info input {
+  display: block;
+  font-size: 17px;
+  padding: 5px;
+  outline: none;
+  border: none;
+}
+.user-info button {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+}
+.user-info button:hover {
+  cursor: pointer;
+}
+.user-info.visible {
+  transform: translateX(0); /* Di chuyển menu vào màn hình */
+}
+.user-info.hidden {
+  transform: translateX(100%); /* Di chuyển menu ra ngoài màn hình */
 }/*# sourceMappingURL=index.css.map */

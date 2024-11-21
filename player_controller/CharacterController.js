@@ -9,11 +9,12 @@ import PhysicWorld from '../modules/PhysicWorld.js';
 import { Physic_Manager } from '../modules/cannon_model_manager.js';
 import { CharacterHealthbar } from '../modules/HealthBar.js';
 import { State_Manager } from '../modules/state_model_manager.js';
+import { GraphicWorld } from '../modules/GraphicWorld.js';
 
 
 export class CharacterController {
     constructor(
-        environment = { scene: new THREE.Scene(), camera: new THREE.PerspectiveCamera() },
+        environment = new GraphicWorld(),
         charName = 'haha',
         physicWorld = new PhysicWorld()
     ) {
@@ -288,6 +289,7 @@ export class CharacterController {
         if (!this._stateMachine._currentState) {
             return;
         }
+        this.environment.improvePerformance(this._model);
         this._stateMachine.Update(timeInSeconds, this._input);
         this.performDash(timeInSeconds);
         this.updateRotation(timeInSeconds);

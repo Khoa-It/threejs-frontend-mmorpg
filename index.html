@@ -30,7 +30,7 @@
 
    <div id="items">
     <img src="/assets/items/bag.png" alt="" id="js-bag-button">
-    <img src="/assets/items/info.png" alt="">
+    <img src="/assets/items/info.png" alt="" id="js-user-button">
    </div>
    
     <div class="punch">
@@ -75,8 +75,20 @@
       <p>Joan</p> <div>F</div>
     </div> -->
     
-    <script type="module" src="event/bag.js"></script>
+    <div class="user-info hidden" id="js-user-info-window">
+      <p class="user-info-title">Thông tin người dùng</p>
+      <label for="">username:</label>
+      <input type="text">
+      <label for="">password:</label>
+      <input type="password">
+      <label for="">email</label>
+      <input type="text">
+      <label for="">Nhấn nút esc để đóng bảng chọn</label>
+      <button>Thay đổi thông tin</button>
+    </div>
 
+    <script type="module" src="event/bag.js"></script>
+    <script type="module" src="/event/user.js"></script>
 
 </body>
 

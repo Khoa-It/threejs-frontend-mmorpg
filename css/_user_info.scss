@@ -1,0 +1,48 @@
+.user-info{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 10px;
+    width: 25%;
+    height: 100%;
+    box-sizing: border-box;
+    @include flex-col;
+    padding: 10px 20px;
+    transition: transform 0.5s ease; /* Thêm hiệu ứng chuyển động 0.5s */
+
+    & > * {margin-bottom: 10px;}
+    &-title{
+        font-weight: bold;
+        color: rgb(85, 189, 237);
+        margin-bottom: 10px;
+    }
+    label{
+        color: gray;
+        font-weight: bold;
+    }
+    input{
+        display: block;
+        font-size: 17px;
+        padding: 5px;
+        outline: none;
+        border: none;
+    }
+    button{
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+        // transition: all ease 2s;
+        &:hover{cursor: pointer;}
+    }
+
+    &.visible {
+        transform: translateX(0); /* Di chuyển menu vào màn hình */
+    }
+    
+    &.hidden {
+        transform: translateX(100%); /* Di chuyển menu ra ngoài màn hình */
+    }
+}
