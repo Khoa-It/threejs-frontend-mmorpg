@@ -1,24 +1,22 @@
 import * as THREE from 'three';
-import { MODELS } from "../assets.js";
 import { BrowserInfo } from "./info.js";
 import { ApiData } from '../web_data/ApiData.js';
+import { MODELS } from '../assets.js';
 
 // const listener = new THREE.AudioListener();
 // const sound = new THREE.Audio(listener);
 // const audioLoader = new THREE.AudioLoader();
 
 
-$(document).ready(function () {
-    console.log(BrowserInfo.IS_LOGIN);
-
-
+$(document).ready(async function () {
+    // const res = await ApiData.updateStaticResource()
     // audioLoader.load(MODELS['music'].fantasy_world, function(buffer) {
     //     sound.setBuffer(buffer);
     //     sound.setLoop(true); // Bạn có thể bật hoặc tắt lặp lại
     //     sound.setVolume(0.5); // Đặt âm lượng từ 0.0 đến 1.0
     //     sound.play();
     // });
-
+    
     const loginFormSelector = {
         email: '#email',
         password: '#password',

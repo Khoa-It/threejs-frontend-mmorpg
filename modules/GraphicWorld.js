@@ -20,6 +20,9 @@ export class GraphicWorld {
 
         this.directionalLight.castShadow = true;
 
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
         this.scene.fog = new THREE.FogExp2(0xffffff, 0.3);  // Màu trắng với độ đậm dần theo khoảng cách
         // this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
     }

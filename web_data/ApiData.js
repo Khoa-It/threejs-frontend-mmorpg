@@ -1,11 +1,18 @@
 export class ApiData {
-    static baseUrl = 'https://localhost:7047';
-    static userBaseUrl = `${this.baseUrl}/api/User`
+    static baseUrlUserService = 'https://localhost:7047';
+    static baseUrlResourceService = 'http://localhost:8080';
+    static userBaseUrl = `${this.baseUrlUserService}/api/User`
     static url = {
         user: {
             getAccount: `${this.userBaseUrl}/account`,
             createUser: this.userBaseUrl,
+            
+        },
+        static_resource: {
+            update: `${this.baseUrlResourceService}/static_resources`,
+            get: `${this.baseUrlResourceService}/static_resources`,
         }
+
     }
     static method = {
         post: "POST",
@@ -14,6 +21,14 @@ export class ApiData {
         get: "GET",
     }
     static apiConfig = (loginData, med) => {
+        if (loginData == null) {
+            return {
+                method: med,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            } 
+        }
         return {
             method: med,
             headers: {
@@ -39,6 +54,26 @@ export class ApiData {
         try {
             const response = await fetch(this.url.user.createUser, this.apiConfig(param, this.method.post));
             return await response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async updateStaticResource(param){
+        try {
+            const response = await fetch(this.url.static_resource.update, this.apiConfig(param,this.method.post));
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async getStaticResource(){
+        try {
+            const response = await fetch(this.url.static_resource.get,this.apiConfig(null,this.method.get));
+            return response.json();
         } catch (error) {
             console.error(error);
             return null;

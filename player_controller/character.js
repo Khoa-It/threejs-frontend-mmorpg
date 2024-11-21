@@ -7,9 +7,15 @@ export class Character {
     constructor(environment = { scene, camera }, charName, physicWorld) {
         this.environment = environment;
         this.controller = new CharacterController(environment, charName, physicWorld);
-        // document.addEventListener('keydown', (e) => {
-        //     console.log(GraphicModelManager.model[charName].position);
-        // })
+        document.addEventListener('keydown', (e) => {            
+            if (e.key == ' ') {
+                const x = GraphicModelManager.model[charName].position.x;
+                const y = GraphicModelManager.model[charName].position.y;
+                const z = GraphicModelManager.model[charName].position.z;
+                const val = [x,y,z];
+                console.log(JSON.stringify(val)+",");
+            }
+        })
     }
 
     update(time) {

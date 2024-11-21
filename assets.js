@@ -1,15 +1,17 @@
+import { ApiData } from "./web_data/ApiData.js";
+
 const alphaScale = {
-    grass: 1/35,
-    start_house: 1/150,
+    grass: 1 / 35,
+    start_house: 1 / 150,
     woman_warior: 0.2,
-    rock: 1/9,
-    monster: 1/3,
-    magic_circle: 4/10,
-    joan: 3/10,
-    arena: 1/10,
+    rock: 1 / 9,
+    monster: 1 / 3,
+    magic_circle: 4 / 10,
+    joan: 3 / 10,
+    arena: 1 / 10,
 }
 
-function sc_arr(scale) {
+export function sc_arr(scale) {
     return [scale, scale, scale];
 }
 
@@ -85,4 +87,12 @@ export const MODELS = {
         'position' : [3.6832196515472893, 0, -5.8610014157611925],
         'scale' : sc_arr(alphaScale.arena),
     },
+    'bg-ground' : {
+        'img' : '/assets/grass/grass.jpg'
+    }
 }
+
+
+// let static_res = await ApiData.getStaticResource();
+// export let MODELS = JSON.parse(JSON.parse(static_res.data));
+
