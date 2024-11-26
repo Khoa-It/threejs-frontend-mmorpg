@@ -60,7 +60,7 @@
             background-color: white;
             padding: 5px;
             background-color: rgba($color: #d7b649, $alpha: 0.5);
-            color: white;
+            color: rgb(213, 213, 213);
         }
 
         .top-info {
@@ -103,6 +103,30 @@
                     width: 130px;
                     height: 108px;
                 }
+            }
+        }
+
+        .bottom-info{
+            box-sizing: border-box;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            p{
+                color: #696969;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            button{
+                margin-top: 10px;
+                display: block;
+                padding: 10px;
+                outline: none;
+                border: none;
+                font-weight: bold;
+                background-color: rgb(104, 165, 239);
+                color: white;
+                border-radius: 5px;
+                &:hover{cursor: pointer;}
             }
         }
     }

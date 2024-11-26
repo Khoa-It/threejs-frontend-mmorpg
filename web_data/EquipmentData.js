@@ -5,23 +5,31 @@ export const EQUIPMENT_DATA = {
         name: 'Hoa của sự sống',
         img: '/assets/equipments/flower.png',
         atk: 1000,
-        main_value: 1000,
+        main_value: 2000,
         main_property: 'Tấn công',
         quantity: {
             
         },
         monsters : ['monster'],
+        properties : {
+            atk: 2000,
+            hp: 1000,
+        },
     },
     2: {
         group_name: 'Dạ hồn chúc phúc',
         name: 'Bí Điển Obsidian',
         img: '/assets/equipments/obsidian_flower.webp',
         atk: 1000,
-        main_value: 1000,
+        main_value: 2200,
         main_property: 'Tấn công',
         quantity: {
             
         },
         monsters : ['monster'],
+        properties : {
+            atk: 2200,
+            hp: 700,
+        },
     }
 }

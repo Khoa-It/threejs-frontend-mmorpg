@@ -360,7 +360,7 @@ body {
   background-color: white;
   padding: 5px;
   background-color: rgba(215, 182, 73, 0.5);
-  color: white;
+  color: rgb(213, 213, 213);
 }
 .bag .bag-right .top-info {
   display: flex;
@@ -396,6 +396,31 @@ body {
   display: block;
   width: 130px;
   height: 108px;
+}
+.bag .bag-right .bottom-info {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+}
+.bag .bag-right .bottom-info p {
+  color: #696969;
+  font-weight: bold;
+  font-size: 20px;
+}
+.bag .bag-right .bottom-info button {
+  margin-top: 10px;
+  display: block;
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  background-color: rgb(104, 165, 239);
+  color: white;
+  border-radius: 5px;
+}
+.bag .bag-right .bottom-info button:hover {
+  cursor: pointer;
 }
 .bag-close-button {
   position: absolute;

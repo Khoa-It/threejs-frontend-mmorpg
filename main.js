@@ -16,6 +16,7 @@ import { LifecycleManager } from "./modules/LifecycleManager.js";
 import { NPC } from "./npc_controller/npc.js";
 import { Arena } from "./modules/Arena.js";
 import { DamageDisplayManager } from "./manager_system/DamageDisplayManager.js";
+import { EquipmentManager } from "./manager_system/EquipmentManager.js";
 
 if (!sessionStorage.getItem("user")) {
     window.location.href = "/login.html";
@@ -34,6 +35,8 @@ ControlAndSystem.moveCameraAndLogInfo(graphicWorld.camera);
 $(document).ready(function () {
     DamageDisplayManager.hide();
 });
+
+EquipmentManager.check();
 
 let clock = new THREE.Clock();
 let lastTime = performance.now();
