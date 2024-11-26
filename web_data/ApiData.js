@@ -11,7 +11,8 @@ export class ApiData {
         static_resource: {
             update: `${this.baseUrlResourceService}/static_resources`,
             get: `${this.baseUrlResourceService}/static_resources`,
-        }
+        },
+        
 
     }
     static method = {

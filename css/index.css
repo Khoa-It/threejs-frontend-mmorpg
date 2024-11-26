@@ -550,4 +550,13 @@ body {
 }
 .user-info.hidden {
   transform: translateX(100%); /* Di chuyển menu ra ngoài màn hình */
+}
+
+.damage {
+  position: absolute;
+  top: 250px;
+  right: 300px;
+  color: red;
+  font-weight: bold;
+  font-size: 50px;
 }/*# sourceMappingURL=index.css.map */

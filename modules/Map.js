@@ -5,6 +5,8 @@ import { TREE_POSITION } from '../object_data/treedata.js';
 import { ROCK_POSITION } from '../object_data/rockdata.js';
 import { GRASS_POSITION } from '../object_data/grassdata.js';
 import { AI_Entity } from './yuka_model_manager.js';
+// import { SkeletonUtils } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/utils/SkeletonUtils.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 export class Map {
     constructor(environment = { scene, camera }) {
@@ -57,23 +59,35 @@ export class Map {
     
 
     createStree(scene) {
-        for (const pos of TREE_POSITION) {
-            const scale = sc_arr(Math.floor(1 + Math.random()*3));
-            ModelLoader.loadGtlfFile(
-                MODELS['tree'].model,
-                scene,
-                pos,
-                scale,
-                null,
-                null,
-            )
+        const cloneToManyTrees = (model) => {
+            for (const pos of TREE_POSITION) {
+                const scale = sc_arr(Math.floor(1 + Math.random()*3));
+                const treeClone = SkeletonUtils.clone(model);
+                treeClone.position.set(...pos);
+                treeClone.scale.set(...scale);
+                scene.add(treeClone);
+            }
         }
+        ModelLoader.gltfLoader.load(MODELS['tree'].model, (glb) => {
+            const model = glb.scene;
+            cloneToManyTrees(model);
+        })
     }
 
     createGrass(scene) {
-        for (const pos of GRASS_POSITION) {
-            ModelLoader.loadGtlfFile(MODELS['grass'].model, scene, pos, MODELS['grass'].scale);
+        const cloneToManyGrass = (model) => {
+            for (const pos of GRASS_POSITION) {
+                const grassClone = SkeletonUtils.clone(model);
+                const scale = MODELS['grass'].scale;
+                grassClone.position.set(...pos);
+                grassClone.scale.set(...scale);
+                scene.add(grassClone);
+            }
         }
+        ModelLoader.gltfLoader.load(MODELS['grass'].model, (glb) => {
+            const model = glb.scene;
+            cloneToManyGrass(model);
+        })
     }
 
     createCreativeCube(scene) {
@@ -82,13 +96,22 @@ export class Map {
         const mesh = new THREE.Mesh(geometry, materials);
         mesh.position.set(2, 0, -2)
         scene.add(mesh);
-        // AI_Entity.createAIController('cube');
     }
 
     createRock(scene) {
-        for (const pos of ROCK_POSITION) {
-            ModelLoader.loadGtlfFile(MODELS['rock'].model, scene, pos, MODELS['rock'].scale);
+        const cloneToManyRock = (model) => {
+            for (const pos of ROCK_POSITION) {
+                const rockClone = SkeletonUtils.clone(model);
+                const scale = MODELS['rock'].scale;
+                rockClone.position.set(...pos);
+                rockClone.scale.set(...scale);
+                scene.add(rockClone);
+            }
         }
+        ModelLoader.gltfLoader.load(MODELS['rock'].model, (glb) => {
+            const model = glb.scene;
+            cloneToManyRock(model);
+        })
     }
 
     createStartHouse(scene) {

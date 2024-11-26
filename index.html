@@ -13,82 +13,94 @@
           }
         }
       </script>
-      <script src="https://cdn.jsdelivr.net/npm/yuka@0.7.8/build/yuka.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/yuka@0.7.8/build/yuka.min.js"></script>
   <link rel="stylesheet" href="./css/index.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/7/Stats.js" integrity="sha512-+nNqDCQd6FiN/mQKnpfI/UswnfuG/cjHZbv+amV/2PLiuGgN8+D5dKzR4PqnSY5pZBExGavZz+FdjIeI9WgpKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/7/Stats.js"
+    integrity="sha512-+nNqDCQd6FiN/mQKnpfI/UswnfuG/cjHZbv+amV/2PLiuGgN8+D5dKzR4PqnSY5pZBExGavZz+FdjIeI9WgpKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 </head>
 
 <body>
-  <script type="module" src="/main.js"></script>
-   <!-- <script type="module" src="./adminView.js"></script> -->
-   <div class="characters" id="characters">
-   </div>
 
-   <div id="monster-info">
-   </div>
+  <div class="damage" id="js-damage"></div>
 
-   <div id="items">
+  <div class="characters" id="characters">
+  </div>
+
+  <div id="monster-info">
+  </div>
+
+  <div id="items">
     <img src="/assets/items/bag.png" alt="" id="js-bag-button">
     <img src="/assets/items/info.png" alt="" id="js-user-button">
-   </div>
-   
-    <div class="punch">
-      <div class="avatar"><img src="/assets/warrior/punch.png" alt=""></div>
-      <div class="title"><p>space</p></div>
-    </div>
+  </div>
 
-    <div class="bag" id="js-bag">
-      <div class="bag-left" id="js-bag-left">
+  <div class="punch">
+    <div class="avatar"><img src="/assets/warrior/punch.png" alt=""></div>
+    <div class="title">
+      <p>space</p>
+    </div>
+  </div>
+
+  <div class="bag" id="js-bag">
+    <div class="bag-left" id="js-bag-left">
+    </div>
+    <div class="bag-right" id="js-bag-right">
+      <div class="name-item">
+        <h3 id="js-equipment-groupname"></h3>
       </div>
-      <div class="bag-right" id="js-bag-right">
-        <div class="name-item"><h3 id="js-equipment-groupname"></h3></div>
-        <div class="top-info">
-          <div class="top-info-left">
-            <div class="top-info-left-top"><p id="js-equipment-name"></p></div>
-            <div class="top-info-left-bottom">
-              <p class="string" id="js-equipment-main-property"></p>
-              <p class="num" id="js-equipment-main-value"></p>
-            </div>
+      <div class="top-info">
+        <div class="top-info-left">
+          <div class="top-info-left-top">
+            <p id="js-equipment-name"></p>
           </div>
-          <div class="top-info-right" id="js-detail-item-img">
-            <img src="/assets/equipments/flower.png" alt="">
+          <div class="top-info-left-bottom">
+            <p class="string" id="js-equipment-main-property"></p>
+            <p class="num" id="js-equipment-main-value"></p>
           </div>
         </div>
+        <div class="top-info-right" id="js-detail-item-img">
+          <img src="/assets/equipments/flower.png" alt="">
+        </div>
       </div>
-      <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-bag-close-btn">
     </div>
+    <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-bag-close-btn">
+  </div>
 
-    <div class="notification" id="js-equipment-notification">
-      <!-- <div id="notification-item" class="notification-item show">
+  <div class="notification" id="js-equipment-notification">
+    <!-- <div id="notification-item" class="notification-item show">
         Đã nhận được trang bị: <span class="notification-item-equipname">Bí Điển Obsidian</span>
       </div> -->
-    </div>
+  </div>
 
-    <div class="story hide" id="js-story">
-      <span class="story-owner" id="js-story-owner">nana</span>
-      <p class="story-content" id="js-story-content">Xin chào bạn, tôi là nana</p>
-      <button id="js-story-btn"><img src="assets/story/story_btn.png" alt="" ></button>
-    </div>
+  <div class="story hide" id="js-story">
+    <span class="story-owner" id="js-story-owner">nana</span>
+    <p class="story-content" id="js-story-content">Xin chào bạn, tôi là nana</p>
+    <button id="js-story-btn"><img src="assets/story/story_btn.png" alt=""></button>
+  </div>
 
-    <!-- <div class="communicated-notification">
+  <!-- <div class="communicated-notification">
       <p>Joan</p> <div>F</div>
     </div> -->
-    
-    <div class="user-info hidden" id="js-user-info-window">
-      <p class="user-info-title">Thông tin người dùng</p>
-      <label for="">username:</label>
-      <input type="text">
-      <label for="">password:</label>
-      <input type="password">
-      <label for="">email</label>
-      <input type="text">
-      <label for="">Nhấn nút esc để đóng bảng chọn</label>
-      <button>Thay đổi thông tin</button>
-    </div>
 
-    <script type="module" src="event/bag.js"></script>
-    <script type="module" src="/event/user.js"></script>
+  <div class="user-info hidden" id="js-user-info-window">
+    <p class="user-info-title">Thông tin người dùng</p>
+    <label for="">username:</label>
+    <input type="text" id="js-user-info-username">
+    <label for="">password:</label>
+    <input type="password" id="js-user-info-password">
+    <label for="">email</label>
+    <input type="text" id="js-user-info-email">
+    <label for="">Nhấn nút esc để đóng bảng chọn</label>
+    <button>Thay đổi thông tin</button>
+  </div>
+
+  <script type="module" src="event/bag.js"></script>
+  <script type="module" src="/event/user.js"></script>
+  <script type="module" src="/modules/socket.js"></script>
+  <script type="module" src="/main.js"></script>
 
 </body>
 

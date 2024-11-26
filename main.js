@@ -15,38 +15,41 @@ import { GraphicModelManager } from "./modules/three_model_manager.js";
 import { LifecycleManager } from "./modules/LifecycleManager.js";
 import { NPC } from "./npc_controller/npc.js";
 import { Arena } from "./modules/Arena.js";
+import { DamageDisplayManager } from "./manager_system/DamageDisplayManager.js";
 
-
-// if (!sessionStorage.getItem("user")) {
-//     // Chuyển hướng về trang login
-//     window.location.href = "/login.html";
-// }
+if (!sessionStorage.getItem("user")) {
+    window.location.href = "/login.html";
+}
 
 const graphicWorld = new GraphicWorld();
 const physicWorld = new PhysicWorld();
-
 const map = new Map(graphicWorld);
-LifecycleManager.addComponent('woman_warior',new Character(graphicWorld, 'woman_warior', physicWorld));
+
+LifecycleManager.addComponent('woman_warior', new Character(graphicWorld, 'woman_warior', physicWorld));
 LifecycleManager.addComponent('npc1', new NPC(graphicWorld, 'npc1'));
 LifecycleManager.addComponent('arena', new Arena(graphicWorld, physicWorld));
 
-// const stats = new Stats();
-// stats.domElement.className = 'stats-panel'; // Thêm lớp CSS
-// document.body.appendChild(stats.domElement)
-// ControlAndSystem.logInfoByUserMouse(graphicWorld.camera, graphicWorld.scene);
-
-
 ControlAndSystem.moveCameraAndLogInfo(graphicWorld.camera);
 
-let clock = new THREE.Clock();
+$(document).ready(function () {
+    DamageDisplayManager.hide();
+});
 
+let clock = new THREE.Clock();
+let lastTime = performance.now();
+let fps = 0;
 
 function refreshWorld() {
     requestAnimationFrame(refreshWorld);
     const time = clock.getDelta();
     LifecycleManager.updateAll(time);
     physicWorld.update();
-    graphicWorld.renderer.render( graphicWorld.scene, graphicWorld.camera );
+    graphicWorld.renderer.render(graphicWorld.scene, graphicWorld.camera);
+    const currentTime = performance.now();
+    const delta = currentTime - lastTime;
+    fps = Math.round(1000 / delta);
+    lastTime = currentTime;
+    // console.log(`FPS: ${fps}`);
 }
 
 refreshWorld();
