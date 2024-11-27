@@ -95,6 +95,7 @@ export const MODELS = {
         'url' : '/assets/Joan/joan.glb',
         'position' : [0.3833148552944432,0,-1.335972254454855],
         'scale' : sc_arr(alphaScale.joan),
+        'voice' : '/assets/Joan/joan_story.mp3',
     },
     'arena' : {
         'url' : '/assets/arena/arena.glb',

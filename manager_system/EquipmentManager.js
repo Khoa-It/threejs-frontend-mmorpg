@@ -137,8 +137,6 @@ export class EquipmentManager {
         console.log('trang bi thanh cong, atk: '+StatManager.calculateAttack());
     }
 
-
-
     static getCalculator() {
         let info = {
             atk: 0,
