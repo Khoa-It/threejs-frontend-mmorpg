@@ -1,4 +1,5 @@
 import { DAMAGE } from "../../damage.js";
+import { StatManager } from "../../manager_system/StatManager.js";
 import { Physic_Manager } from "../../modules/cannon_model_manager.js";
 import { State_Manager } from "../../modules/state_model_manager.js";
 import { State } from "./State.js";
@@ -25,7 +26,8 @@ export class NormalSkillState extends State {
             const element = Physic_Manager.model[key].body;
             if (key != playername && element.isCollision) {
                 State_Manager.model[key].isBeingAttacked = true;
-                State_Manager.model[key].damageReceived = DAMAGE[this._parent.charName].normal_attack;     
+                // State_Manager.model[key].damageReceived = DAMAGE[this._parent.charName].normal_attack;
+                State_Manager.model[key].damageReceived = StatManager.calculateAttack();
             }
         }
     }

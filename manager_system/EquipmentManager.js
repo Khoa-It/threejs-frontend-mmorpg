@@ -1,10 +1,11 @@
 import { EQUIPMENT_DATA } from "../web_data/EquipmentData.js";
+import { StatManager } from "./StatManager.js";
 import { UserManager } from "./UserManager.js";
 
 export class EquipmentManager {
 
     static data = EQUIPMENT_DATA;
-    
+
     static selector = {
         all_item: '#js-bag-left',
         detail_item_info: '#js-bag-right',
@@ -16,7 +17,8 @@ export class EquipmentManager {
         item_img: '#js-detail-item-img',
         equipment_notification: '#js-equipment-notification',
         equipment_notification_item: '.notification .notification-item',
-        description : '#js-bottom-info',
+        description: '#js-bottom-info',
+        used_btn: '#js-used-button',
     }
 
     static formattedProperties(id) {
@@ -26,7 +28,7 @@ export class EquipmentManager {
             .join('');
     }
 
-    static check(){
+    static check() {
         console.log(this.data);
     }
 
@@ -54,10 +56,13 @@ export class EquipmentManager {
         const formatCalback = (id) => {
             return this.formattedProperties(id);
         };
-        $(document).on('click', selectorfunc.item, function() {
+        const usedEquipmentCallback = (id) => {
+            return this.useEquipment(id);
+        }
+        $(document).on('click', selectorfunc.item, function () {
             let equipment_id = $(this).data('id');
             let desBelow = formatCalback(equipment_id);
-            desBelow += `<button>Trang bị</button>`;
+            desBelow += `<button id="js-used-button" data-id="${equipment_id}">Trang bị</button>`;
             let img = EquipmentManager.getValueByIdAndKey(equipment_id, 'img');
             $(selectorfunc.item_group_name).html(EquipmentManager.getValueByIdAndKey(equipment_id, 'group_name'));
             $(selectorfunc.item_name).html(EquipmentManager.getValueByIdAndKey(equipment_id, 'name'));
@@ -65,6 +70,10 @@ export class EquipmentManager {
             $(selectorfunc.item_main_value).html(EquipmentManager.getValueByIdAndKey(equipment_id, 'main_value'));
             $(selectorfunc.item_img).html(`<img src="${img ?? '/assets/equipments/flower.png'}" alt="">`);
             $(selectorfunc.description).html(desBelow);
+        });
+        $(document).on('click', this.selector.used_btn, function () {
+            const equipId = $(this).data('id');
+            usedEquipmentCallback(equipId);
         });
     }
 
@@ -118,5 +127,31 @@ export class EquipmentManager {
             }
         }
         this.updateAllItemHtml();
+    }
+
+    static useEquipment(id) {
+        const selector = `${UserManager.getUserId()}_${UserManager.getCurrentCharId()}`;
+        this.data[id]['used'][`${selector}`] = true;
+        $(this.selector.used_btn).toggle();
+        console.log(this.data);
+        console.log('trang bi thanh cong, atk: '+StatManager.calculateAttack());
+    }
+
+
+
+    static getCalculator() {
+        let info = {
+            atk: 0,
+            hp: 0,
+        };
+        const usedkey = `${UserManager.getUserId()}_${UserManager.getCurrentCharId()}`;
+        for (const [key, equipment] of Object.entries(this.data)) {
+            const usedProp = equipment['used'];
+            if (usedProp?.[usedkey] != undefined) {
+                info.atk += equipment.properties.atk;
+                info.hp += equipment.properties.hp;
+            }
+        }
+        return info;
     }
 }

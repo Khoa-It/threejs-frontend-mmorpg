@@ -8,12 +8,15 @@ export const EQUIPMENT_DATA = {
         main_value: 2000,
         main_property: 'Tấn công',
         quantity: {
-            
+            8: 1,
         },
         monsters : ['monster'],
         properties : {
             atk: 2000,
             hp: 1000,
+        },
+        used: {
+
         },
     },
     2: {
@@ -30,6 +33,9 @@ export const EQUIPMENT_DATA = {
         properties : {
             atk: 2200,
             hp: 700,
+        },
+        used: {
+
         },
     }
 }

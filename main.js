@@ -36,6 +36,7 @@ $(document).ready(function () {
     DamageDisplayManager.hide();
 });
 
+
 EquipmentManager.check();
 
 let clock = new THREE.Clock();

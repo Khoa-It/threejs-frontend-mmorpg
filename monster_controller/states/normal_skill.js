@@ -1,4 +1,5 @@
 import { DAMAGE } from "../../damage.js";
+import { StatManager } from "../../manager_system/StatManager.js";
 import { Physic_Manager } from "../../modules/cannon_model_manager.js";
 import { State_Manager } from "../../modules/state_model_manager.js";
 import { GraphicModelManager } from "../../modules/three_model_manager.js";
@@ -47,7 +48,8 @@ export class NormalSkillState extends MonsterState {
             const element = Physic_Manager.model[key].body;
             if (key != this.fsm.name && element.isCollision && this.isFacingWithPlayer()) {
                 State_Manager.model[key].isBeingAttacked = true;
-                State_Manager.model[key].damageReceived = DAMAGE[this.fsm.name].normal_attack;
+                // State_Manager.model[key].damageReceived = DAMAGE[this.fsm.name].normal_attack;
+                State_Manager.model[key].damageReceived = StatManager.calculateAttack(StatManager.MONSTER,this.fsm.name);
                 this.isHandlePhysicAttackedComplete = true;
             }
         }

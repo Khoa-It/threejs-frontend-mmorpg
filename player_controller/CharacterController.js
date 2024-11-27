@@ -10,6 +10,7 @@ import { Physic_Manager } from '../modules/cannon_model_manager.js';
 import { CharacterHealthbar } from '../modules/HealthBar.js';
 import { State_Manager } from '../modules/state_model_manager.js';
 import { GraphicWorld } from '../modules/GraphicWorld.js';
+import { StatManager } from '../manager_system/StatManager.js';
 
 
 export class CharacterController {
@@ -118,7 +119,9 @@ export class CharacterController {
     updateHp(timeInSeconds) {
         if (State_Manager.model[this.charName].isBeingAttacked) {
             this._stateMachine.SetState('sweepfall');
-            this.hp -= State_Manager.model[this.charName].damageReceived;
+            // this.hp -= State_Manager.model[this.charName].damageReceived;
+            const damaged = State_Manager.model[this.charName].damageReceived;
+            this.hp = StatManager.decreaseHp(damaged,this.hp);
             this.healthbar.setHp(this.hp);
             // Thêm logic đánh bật
             this.isBeingKnockedBack = true; // Bắt đầu đánh bật

@@ -12,6 +12,7 @@ import { GraphicWorld } from "../modules/GraphicWorld.js";
 import { LifecycleManager } from "../modules/LifecycleManager.js";
 import { EquipmentManager } from "../manager_system/EquipmentManager.js";
 import { DamageDisplayManager } from "../manager_system/DamageDisplayManager.js";
+import { StatManager } from "../manager_system/StatManager.js";
 export class Monster {
     constructor(enviroment = new GraphicWorld(), physicWorld = new PhysicWorld()) {
         this.healthbar = new BossHealthBar('monster');
@@ -113,7 +114,8 @@ export class Monster {
 
     updateHp() {
         if (State_Manager.model[this.name].isBeingAttacked) {
-            this.hp -= State_Manager.model[this.name].damageReceived;
+            const damageReceived = State_Manager.model[this.name].damageReceived;
+            this.hp = StatManager.decreaseHp(damageReceived,this.hp,StatManager.MONSTER,this.name);
             DamageDisplayManager.show(State_Manager.model[this.name].damageReceived);
             if (this.hp < 0) this.hp = 0;
             this.healthbar.setHp(this.hp);

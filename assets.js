@@ -44,6 +44,10 @@ export const MODELS = {
         'position': [5,0,0],
         'physicSize': [0.1, 0.5, 0.1],
         'avatar': '/assets/warrior/avatar.png',
+        stat: {
+            atk : 1000,
+            hp: 1000,
+        },
     },
     'rock': {
         'model' : '/assets/rock/stylized_rock.glb',
@@ -65,6 +69,16 @@ export const MODELS = {
         'scale': sc_arr(alphaScale.monster),
         'position': [3.6832196515472893, 0, -5.8610014157611925],
         'physicSize': [0.2, 0.5, 0.2],
+        stat: {
+            atk : 100,
+            hp: 10000,
+        },
+    },
+    'zerodata' : {
+        stat: {
+            atk : 100,
+            hp: 10000,
+        },
     },
     'items' : {
         'bag': '/assets/items/bag.png',
