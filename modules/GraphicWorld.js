@@ -26,15 +26,6 @@ export class GraphicWorld {
         this.scene.fog = new THREE.FogExp2(0xffffff, 0.5);  // Màu trắng với độ đậm dần theo khoảng cách
         // this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
     }
-    
-    improvePerformance(model){
-        this.scene.traverse((object) => {
-            if (object.isMesh) {
-                const distance = model.position.distanceTo(object.position);                
-                object.visible = distance <= 10; // Hiển thị nếu trong phạm vi 50 đơn vị
-            }
-        });
-    }
 
     removeModel(key){
         this.scene.remove(GraphicModelManager.getGraphicModelByKey(key));

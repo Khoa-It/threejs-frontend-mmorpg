@@ -33,14 +33,22 @@
   </div>
 
   <div id="items">
+    <img src="/assets/items/shop.png" alt="" id="js-shop-button">
     <img src="/assets/items/bag.png" alt="" id="js-bag-button">
     <img src="/assets/items/info.png" alt="" id="js-user-button">
   </div>
 
-  <div class="punch">
+  <div class="normal-skill">
     <div class="avatar"><img src="/assets/warrior/punch.png" alt=""></div>
     <div class="title">
       <p>space</p>
+    </div>
+  </div>
+
+  <div class="expecial-skill">
+    <div class="avatar"><img src="/assets/warrior/teleport.png" alt=""></div>
+    <div class="title">
+      <p>X</p>
     </div>
   </div>
 
@@ -73,6 +81,29 @@
     <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-bag-close-btn">
   </div>
 
+  <div class="shop" id="js-shop">
+    <div class="shop-properties">
+      <div class="shop-properties-mora">
+        <img class="shop-properties-mora-img" src="/assets/items/mora.png" alt="">
+        <p class="shop-properties-mora-info">3000</p>
+      </div>
+    </div>
+    <div class="shop-items">
+      <div class="shop-items-left">
+        <div class="shop-items-left-item">
+          <img src="/assets/equipments/Weapon_A_Thousand_Floating_Dreams.webp" alt="">
+        </div>
+        <div class="shop-items-left-item">
+          <img src="/assets/equipments/Weapon_A_Thousand_Floating_Dreams.webp" alt="">
+        </div>
+        <div class="shop-items-left-item">
+          <img src="/assets/equipments/Weapon_A_Thousand_Floating_Dreams.webp" alt="">
+        </div>
+      </div>
+    </div>
+    <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-shop-close-btn">
+  </div>
+
   <div class="notification" id="js-equipment-notification">
     <!-- <div id="notification-item" class="notification-item show">
         Đã nhận được trang bị: <span class="notification-item-equipname">Bí Điển Obsidian</span>
@@ -101,6 +132,7 @@
     <button>Thay đổi thông tin</button>
   </div>
 
+  <script type="module" src="/event/shop.js"></script>
   <script type="module" src="event/bag.js"></script>
   <script type="module" src="/event/user.js"></script>
   <!-- <script type="module" src="/modules/socket.js"></script> -->

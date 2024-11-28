@@ -12,11 +12,15 @@
     }
 }
 
-.punch{
+@mixin skill-position($bot, $right, $width){
     position: absolute;
-    right: 0;
-    bottom: 10px;
-    width: 10%;
+    bottom: $bot;
+    right: $right;
+    width: $width;
+}
+
+.normal-skill{
+    @include skill-position(10px, 0, 10%);
     @include flex-col;
     align-items: center;
     & > * {margin-bottom: 0px;}
@@ -26,6 +30,21 @@
         overflow: hidden;
         background-color: rgba($color: rgb(0, 0, 0), $alpha: 0.1);
         img{display: block; width: 100%; height: auto; margin-bottom: 0;}
+    }
+    .title{
+        @include skill-title();
+    }
+}
+
+.expecial-skill{
+    @include skill-position(10px, 110px, 26px);
+    @include flex-col;
+    align-items: center;
+    .avatar{
+        // padding: 5px;
+        background-color: rgba($color: rgb(13, 43, 240), $alpha: 0.1);
+        border-radius: 50%;
+        img{width: 26px;display: block;margin: auto;}
     }
     .title{
         @include skill-title();

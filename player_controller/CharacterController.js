@@ -292,7 +292,7 @@ export class CharacterController {
         if (!this._stateMachine._currentState) {
             return;
         }
-        this.environment.improvePerformance(this._model);
+        
         this._stateMachine.Update(timeInSeconds, this._input);
         this.performDash(timeInSeconds);
         this.updateRotation(timeInSeconds);

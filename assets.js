@@ -44,6 +44,7 @@ export const MODELS = {
         'position': [5,0,0],
         'physicSize': [0.1, 0.5, 0.1],
         'avatar': '/assets/warrior/avatar.png',
+        'teleport' : '/assets/warrior/teleport.png',
         stat: {
             atk : 1000,
             hp: 1000,
