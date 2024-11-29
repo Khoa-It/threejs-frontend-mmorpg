@@ -1,5 +1,6 @@
 import { EQUIPMENT_DATA } from "../web_data/EquipmentData.js";
 import { StatManager } from "./StatManager.js";
+import { StatusInfoManager } from "./StatusInfoManger.js";
 import { UserManager } from "./UserManager.js";
 
 export class EquipmentManager {
@@ -134,7 +135,7 @@ export class EquipmentManager {
         this.data[id]['used'][`${selector}`] = true;
         $(this.selector.used_btn).toggle();
         console.log(this.data);
-        console.log('trang bi thanh cong, atk: '+StatManager.calculateAttack());
+        console.log('trang bi thanh cong, atk: ' + StatManager.calculateAttack());
     }
 
     static getCalculator() {
@@ -151,5 +152,21 @@ export class EquipmentManager {
             }
         }
         return info;
+    }
+
+    static buy_item(id) {
+        const userId = UserManager.getUserId();
+        let userMoney = StatusInfoManager.getMora(userId);
+        if (userMoney < this.data[id].price) {
+            alert('Bạn không có đủ mora');
+            return;
+        }
+        userMoney -= this.data[id].price;
+        StatusInfoManager.setMora(userId,userMoney);
+        this.data[id].not_show.push(`id-${userId}`);
+        this.data[id].quantity[userId] = 1;
+        this.setAllItemHtml();
+        this.setDetailItemHtml();
+        this.setFirstItemDetailHtml();
     }
 }

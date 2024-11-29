@@ -56,6 +56,8 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
+        not_show:[],
+        price: 3000,
     },
 
     4: {
@@ -76,13 +78,14 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
-
+        not_show:[],
+        price: 3000,
     },
 
     5: {
         group_name: 'Dạ hồn chúc phúc',
         name: 'Amos Bow',
-        img: 'assets/equipments/Weapon_Amos%27_Bow.webp',
+        img: 'assets/equipments/Weapon_Amos_Bow.webp',
         main_value: 3100,
         main_property: 'Tấn công',
         quantity: {
@@ -97,6 +100,8 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
+        not_show:[],
+        price: 3000,
 
     },
 
@@ -118,6 +123,8 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
+        not_show:[],
+        price: 3000,
 
     },
 
@@ -139,13 +146,15 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
+        not_show:[],
+        price: 3000,
 
     },
 
     8: {
         group_name: 'Dạ hồn chúc phúc',
         name: 'Astral Vulture Crimson Plumage',
-        img: 'assets/equipments/Weapon_Astral_Vulture%27s_Crimson_Plumage.webp',
+        img: 'assets/equipments/Weapon_Astral_Vultures_Crimson_Plumage.webp',
         main_value: 4100,
         main_property: 'Tấn công',
         quantity: {
@@ -160,6 +169,8 @@ export const EQUIPMENT_DATA = {
 
         },
         shop: true,
+        not_show:[],
+        price: 3000,
 
     },
 }

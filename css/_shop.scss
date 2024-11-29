@@ -27,13 +27,14 @@
     &-items{
         @include flex-row;
         justify-content: space-between;
+        align-items: flex-start;
         &-left{
             @include flex-row;
             flex-wrap: wrap;
             &-item{
                 padding: 5px;
                 background-color: rgb(223, 223, 223);
-                img{display: block; margin: auto;}   
+                img{display: block; margin: auto; width: 60px;}   
                 margin-right: 10px;
                 border-radius: 5px;    
                 border: 2px solid rgb(223, 223, 223);    
@@ -42,6 +43,38 @@
                     cursor: pointer;
                     border: 2px solid rgb(93, 132, 218);
                 }     
+            }
+        }
+        &-right{
+            @include flex-col;
+            &-name{
+                width: 200px;
+                // height: 15px;
+                @include text-border;
+                padding: 10px 15px;
+                color: rgba($color: #2f70f3, $alpha: 1);
+                font-weight: bold;
+            }
+            &-info{
+                img{margin-right: 15px; width: 60px;}
+                @include text-border;
+                padding: 15px;
+                @include flex-row;
+                font-weight: bold;
+                align-items: flex-start;
+            }
+            &-buy{
+                padding: 10px;
+                @include text-border;
+                button{
+                    background-color: #2f70f3;
+                    color: white;
+                    padding: 10px 20px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    outline: none;
+                    border: none;
+                }
             }
         }
     }
