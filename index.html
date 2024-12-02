@@ -33,6 +33,7 @@
   </div>
 
   <div id="items">
+    <img src="/assets/items/atm-card.png" alt="" id="js-pay-button">
     <img src="/assets/items/shop.png" alt="" id="js-shop-button">
     <img src="/assets/items/bag.png" alt="" id="js-bag-button">
     <img src="/assets/items/info.png" alt="" id="js-user-button">
@@ -139,6 +140,55 @@
     <button>Thay đổi thông tin</button>
   </div>
 
+  <div class="payment" id="js-payment-window">
+    <h2> Gói nạp </h2>
+    <div class="payment-item">
+      <div class="payment-item-info">
+        <img src="/assets/items/mora.png" alt="">
+        <p>3000</p>
+      </div>
+      <p class="payment-item-price">10.000 đ</p>
+    </div>
+    <div class="payment-info">
+      <img src="/assets/payment/agribank.jpg" alt="" class="payment-info-agribank">
+      <img src="/assets/payment/momo.jpg" alt="" class="payment-info-momo">
+    </div>
+
+    <p class="payment-note">Nội dung chuyển tiền vui lòng chứa đầy đủ một số thông tin sau</p>
+    <p class="payment-note">Cú pháp nên dùng: họ tên - email - số tiền - mã gói</p>
+
+    <form action="" class="payment-form">
+      <h3>Gửi thông tin đã thanh toán</h3>  
+      <label for="">Nhập đầy đủ họ và tên</label>
+      <input type="text" name="" id="js-username">
+      <label for="">Nhập đầy đủ email</label>
+      <input type="text" name="" id="js-email">
+      <label for="">Ngân hàng chuyển khoản</label>
+      <div class="payment-form-bank">
+        <label for="" class="payment-form-bank-item" style="color: rgb(211, 65, 87);">
+          <input type="radio" name="bank"  value="agribank">
+          Agribank
+        </label>
+        <label for="" class="payment-form-bank-item" style="color: rgb(229, 23, 160);">
+          <input type="radio" name="bank"  value="momo">
+          Momo
+        </label>
+      </div>
+
+      <label for="">Gói nạp</label>
+      <div class="payment-form-package">
+        <label for="">
+          <input type="radio" name="package" value="pkg1">
+          10.000đ (mã pkg1)
+        </label>
+      </div>
+      <button class="payment-form-submit" id="js-submit">Gửi thông tin</button>
+    </form>
+
+    <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-payment-close-btn">
+  </div>
+
+  <script type="module" src="/event/payment.js"></script>
   <script type="module" src="/event/shop.js"></script>
   <script type="module" src="event/bag.js"></script>
   <script type="module" src="/event/user.js"></script>
