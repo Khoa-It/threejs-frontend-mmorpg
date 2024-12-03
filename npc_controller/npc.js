@@ -20,7 +20,6 @@ export class NPC {
             id
         );
         this.currentLineIndex = 0;
-        console.log(this.currentLineIndex);
 
         this.name = NpcManager.getNpcNameById(id);
         this.story = NpcManager.getNpcStoryById(id);

@@ -7,9 +7,10 @@ import { GRASS_POSITION } from '../object_data/grassdata.js';
 import { AI_Entity } from './yuka_model_manager.js';
 // import { SkeletonUtils } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/utils/SkeletonUtils.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+import { GraphicWorld } from './GraphicWorld.js';
 
 export class Map {
-    constructor(environment = { scene, camera }) {
+    constructor(environment = new GraphicWorld()) {
         this.environment = environment;
         this.textureLoader = new THREE.TextureLoader();
         this.createGround(environment.scene);

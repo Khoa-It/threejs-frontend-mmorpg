@@ -1,13 +1,20 @@
+import { UserManager } from "../manager_system/UserManager.js";
+
 export class ApiData {
     static baseUrlUserService = 'https://localhost:7047';
     static baseUrlResourceService = 'http://localhost:8080';
     static baseUrlSocketService = 'http://localhost:3030';
-    static userBaseUrl = `${this.baseUrlUserService}/api/User`
+    static userBaseUrl = `${this.baseUrlUserService}/api/User`;
+    static frienshipBaseUrl = `${this.baseUrlUserService}/api/Friendship`;
+
     static url = {
         user: {
             getAccount: `${this.userBaseUrl}/account`,
             createUser: this.userBaseUrl,
-            
+        },
+        friendship: {
+            getall: (id) => `${this.frienshipBaseUrl}/${id}`,
+            update: this.frienshipBaseUrl,
         },
         static_resource: {
             update: `${this.baseUrlResourceService}/static_resources`,
@@ -15,7 +22,7 @@ export class ApiData {
         },
         socket_service: {
             payment: `${this.baseUrlSocketService}/payment`,
-        }
+        },
     }
     static method = {
         post: "POST",
@@ -86,6 +93,30 @@ export class ApiData {
     static async payment(param){
         try {
             const response = await fetch(this.url.socket_service.payment,this.apiConfig(param,this.method.post));
+            return response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async getAllFriendShip(id){
+        try {
+            const response = await fetch(this.url.friendship.getall(id),this.apiConfig(null,this.method.get));
+            return response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async updateFriendship(id){
+        try {
+            const param = {
+                userId1 : UserManager.getUserId(),
+                userId2 : id,
+            }
+            const response = await fetch(this.url.friendship.update,this.apiConfig(param,this.method.put));
             return response.json();
         } catch (error) {
             console.error(error);

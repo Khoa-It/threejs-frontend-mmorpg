@@ -6,7 +6,6 @@ export class Notification {
         this.message = message;
         this.parrent_id = parrent_id;
         this.selector = `#notification-${parrent_id}`;
-        console.log(this.selector);
         this.status = false;
     }
 

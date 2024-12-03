@@ -823,4 +823,59 @@ body {
 }
 .payment-form-submit:hover {
   cursor: pointer;
+}
+
+.other {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+.other-title {
+  font-weight: bold;
+  font-size: large;
+  color: rgb(72, 154, 248);
+}
+.other-panel {
+  display: flex;
+  flex-direction: column;
+}
+.other-panel-note {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #ccc;
+}
+.other-panel-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid rgb(187, 187, 187);
+  border-radius: 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 20px;
+  padding: 20px;
+}
+.other-panel-item-name {
+  font-weight: bold;
+  margin-right: 20px;
+}
+.other-panel-item button {
+  outline: none;
+  border: none;
+  background-color: rgb(91, 145, 244);
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.other-panel-item button:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=index.css.map */

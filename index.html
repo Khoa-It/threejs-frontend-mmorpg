@@ -33,6 +33,7 @@
   </div>
 
   <div id="items">
+    <img src="/assets/items/friend.png" alt="" id="js-other-button">
     <img src="/assets/items/atm-card.png" alt="" id="js-pay-button">
     <img src="/assets/items/shop.png" alt="" id="js-shop-button">
     <img src="/assets/items/bag.png" alt="" id="js-bag-button">
@@ -188,12 +189,24 @@
     <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-payment-close-btn">
   </div>
 
+  <div class="other" id="js-other-window">
+    <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-other-close-btn">
+    <p class="other-title">Những người chơi trực tuyến khác</p>
+    <div class="other-panel" id="js-other-panel">
+      <div class="other-panel-item">
+        <div class="other-panel-item-name">Tên người chơi</div>
+        <button>Kết bạn</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+  <script type="module" src="/event/other.js"></script>
   <script type="module" src="/event/payment.js"></script>
   <script type="module" src="/event/shop.js"></script>
   <script type="module" src="event/bag.js"></script>
   <script type="module" src="/event/user.js"></script>
-  <!-- <script type="module" src="/modules/socket.js"></script> -->
-  <script type="module" src="/main.js"></script>
+  <script type="module" src="/modules/socket.js"></script>
 
 </body>
 
