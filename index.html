@@ -33,6 +33,7 @@
   </div>
 
   <div id="items">
+    <img src="/assets/items/myfriend.png" alt="" id="js-friend-button">
     <img src="/assets/items/friend.png" alt="" id="js-other-button">
     <img src="/assets/items/atm-card.png" alt="" id="js-pay-button">
     <img src="/assets/items/shop.png" alt="" id="js-shop-button">
@@ -200,7 +201,41 @@
     </div>
   </div>
 
+  <div class="friend" id="js-friend-window">
+    <img class="bag-close-button" src="/assets/equipments/close-button.png" alt="" id="js-friend-close-btn">
+    <p class="friend-title">Danh sách bạn bè</p>
+    <div class="friend-info">
+      <div class="friend-info-listfriend" id="js-listfriend">
+        <!-- <div class="friend-info-listfriend-item" >
+          <p class="friend-info-listfriend-item-username">Tên người chơi hshs hshshs sjsjss fhfhf</p>
+        </div>
+        <div class="friend-info-listfriend-item active">
+          <p class="friend-info-listfriend-item-username">Tên người chơi dhdhdhdhdhdhd</p>
+        </div>
+        <div class="friend-info-listfriend-item">
+          <p class="friend-info-listfriend-item-username">Tên người chơi</p>
+        </div> -->
+      </div>
+      <div class="friend-info-chatpanel">
+        <div class="friend-info-chatpanel-messages" id="js-messages">
+          <!-- <p class="friend-info-chatpanel-messages-owner">Hello HelloHelloHelloHelloHello HelloHelloHelloHelloHelloHello HelloHelloHelloHelloHello kkkk</p>
+          <p class="friend-info-chatpanel-messages-other">Hello khoaaaaa</p>
+          <p class="friend-info-chatpanel-messages-other">Hello khjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjoa</p>
+          <p class="friend-info-chatpanel-messages-owner">Hello kkkk jfjfjfj</p>
+          <p class="friend-info-chatpanel-messages-owner">Hello kkkk jfjfjfj</p>
+          <p class="friend-info-chatpanel-messages-owner">Hello kkkk jfjfjfj</p> -->
+
+        </div>
+        <div class="friend-info-chatpanel-user">
+          <input type="text" disabled id="js-input-message">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <script type="module" src="/main.js"></script>
+  <script type="module" src="/event/friend.js"></script>
   <script type="module" src="/event/other.js"></script>
   <script type="module" src="/event/payment.js"></script>
   <script type="module" src="/event/shop.js"></script>

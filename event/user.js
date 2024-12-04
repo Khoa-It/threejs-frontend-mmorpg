@@ -1,6 +1,6 @@
 import { UserManager } from "../manager_system/UserManager.js";
 
-const selector = {
+export const selector = {
     user_button: '#js-user-button',
     user_info_window: '#js-user-info-window',
     username: '#js-user-info-username',
@@ -8,9 +8,8 @@ const selector = {
     email: '#js-user-info-email',
 }
 
-
-
 $(document).ready(function () {    
+    
     $(selector.username).val(UserManager.getUsername());
     $(selector.email).val(UserManager.getEmail());
     $(selector.user_button).click(function (e) {

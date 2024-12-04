@@ -878,4 +878,112 @@ body {
 }
 .other-panel-item button:hover {
   cursor: pointer;
+}
+.other-panel-item button[disabled] {
+  background-color: gray;
+  color: lightgray;
+  cursor: not-allowed;
+}
+
+.friend {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 50px;
+  box-sizing: border-box;
+}
+.friend-title {
+  font-weight: bold;
+  color: rgb(47, 170, 247);
+  font-size: large;
+}
+.friend-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: flex-start;
+}
+.friend-info-listfriend {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-width: 300px;
+  overflow: hidden;
+}
+.friend-info-listfriend-item {
+  border: 1px solid rgb(187, 187, 187);
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  transition: all ease 0.5s;
+}
+.friend-info-listfriend-item-username {
+  font-weight: bold;
+}
+.friend-info-listfriend-item.active {
+  background-color: rgb(47, 170, 247);
+  color: white;
+}
+.friend-info-chatpanel {
+  position: relative;
+  margin-top: 20px;
+  margin-left: 50px;
+  border: 1px solid rgb(187, 187, 187);
+  padding: 50px;
+  width: 600px;
+  height: 300px;
+  max-height: 300px;
+}
+.friend-info-chatpanel-messages {
+  max-height: 300px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.friend-info-chatpanel-messages-owner {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #dbdbdb;
+  color: black;
+  max-width: 50%;
+  word-wrap: break-word; /* Tự động ngắt dòng khi từ quá dài */
+  word-break: break-word; /* Hoặc break-word cho trình duyệt cũ */
+}
+.friend-info-chatpanel-messages-other {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: rgb(47, 170, 247);
+  color: white;
+  max-width: 50%;
+  word-wrap: break-word; /* Tự động ngắt dòng khi từ quá dài */
+  word-break: break-word; /* Hoặc break-word cho trình duyệt cũ */
+  justify-self: flex-end;
+}
+.friend-info-chatpanel-user {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px 20px;
+  width: 660px;
+  background-color: #f1f1f1;
+}
+.friend-info-chatpanel-user input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 500px;
+  border-radius: 20px;
 }/*# sourceMappingURL=index.css.map */

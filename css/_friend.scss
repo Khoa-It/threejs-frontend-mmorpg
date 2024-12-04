@@ -1,0 +1,89 @@
+@mixin message-style($colr, $bgcol){
+    width: fit-content;
+    padding: 10px 20px;
+    // @include text-border;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: $bgcol;
+    color: $colr;
+    max-width: 50%;
+    word-wrap: break-word; /* Tự động ngắt dòng khi từ quá dài */
+    word-break: break-word; /* Hoặc break-word cho trình duyệt cũ */
+}
+
+.friend{
+    @include window;
+    @include flex-col;
+    align-items: flex-start;
+    padding: 50px;
+    box-sizing: border-box;
+    &-title{
+        font-weight: bold;
+        color: rgb(47, 170, 247);
+        font-size: large;
+    }
+    &-info{
+        @include flex-row;
+        align-items: flex-start;
+        &-listfriend{
+            @include flex-col;
+            width: 300px;
+            max-width: 300px;
+            overflow: hidden;
+            &-item{
+                @include text-border;
+                margin-top: 20px;
+                padding: 20px;
+                border-radius: 8px;
+                transition: all ease 0.5s;
+                &-username{
+                    font-weight: bold;
+                }
+                &.active{
+                    background-color: rgb(47, 170, 247);
+                    color: white;
+                }
+            }
+        }
+        &-chatpanel{
+            position: relative;
+            margin-top: 20px;
+            margin-left: 50px;
+            @include text-border;
+            padding: 50px;
+            width: 600px;
+            height: 300px;
+            max-height: 300px;
+            &-messages{
+                max-height: 300px;
+                overflow-y: scroll;
+                scrollbar-width: none;
+
+                &-owner{
+                    @include message-style(black,#dbdbdb);
+                }
+                &-other{
+                    @include message-style(white,rgb(47, 170, 247));
+                    justify-self: flex-end;
+                }
+            }
+            &-user{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                padding: 10px 20px;
+                width: 660px;
+                background-color: #f1f1f1;
+                input{
+                    border: none;
+                    outline: none;
+                    padding: 10px;
+                    width: 500px;
+                    border-radius: 20px;
+                }
+            }
+        }
+
+    }
+
+}

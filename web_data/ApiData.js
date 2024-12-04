@@ -1,5 +1,7 @@
 import { UserManager } from "../manager_system/UserManager.js";
 
+
+
 export class ApiData {
     static baseUrlUserService = 'https://localhost:7047';
     static baseUrlResourceService = 'http://localhost:8080';
@@ -15,6 +17,7 @@ export class ApiData {
         friendship: {
             getall: (id) => `${this.frienshipBaseUrl}/${id}`,
             update: this.frienshipBaseUrl,
+            myfriends: `${this.frienshipBaseUrl}/friends/${UserManager.getUserId()}`,
         },
         static_resource: {
             update: `${this.baseUrlResourceService}/static_resources`,
@@ -118,6 +121,16 @@ export class ApiData {
             }
             const response = await fetch(this.url.friendship.update,this.apiConfig(param,this.method.put));
             return response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async getMyFriends() {
+        try {
+            const res = await fetch(this.url.friendship.myfriends, this.apiConfig(null,this.method.get));
+            return res.json();
         } catch (error) {
             console.error(error);
             return null;

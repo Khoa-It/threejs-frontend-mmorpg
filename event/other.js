@@ -1,4 +1,5 @@
 import { SocketManager } from "../manager_system/SocketManager.js";
+import { event, socket } from "../modules/socket.js";
 import { ApiData } from "../web_data/ApiData.js";
 
 const selector = {
@@ -26,8 +27,11 @@ $(document).ready(function () {
     $(document).on('click', selector.addfriend, async function () {
         const otherId = $(this).data('id');
         const result = await ApiData.updateFriendship(otherId);
-        console.log(result);
         other_updateWindow();
+        const datasend = {
+            message : "Send request addfriend",
+        }
+        socket.emit(event.serverRequestAddFriend,datasend);
     });
 
 });
