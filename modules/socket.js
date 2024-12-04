@@ -1,3 +1,4 @@
+import { friend_updateMessage } from "../event/friend.js";
 import { other_updateWindow } from "../event/other.js";
 import { SocketManager } from "../manager_system/SocketManager.js";
 import { UserManager } from "../manager_system/UserManager.js";
@@ -14,6 +15,11 @@ export const event = {
     updatePlayerList: "updatePlayerList",
     serverRequestAddFriend: "serverRequestAddFriend",
     clientRequestAddFriend: "clientRequestAddFriend",
+    serverMessage: "serverMessage",
+    clientMessage: "clientMessage",
+    serverUpdateMessage: "serverUpdateMessage",
+    clientUpdateMessage: "clientUpdateMessage",
+
 }
 
 
@@ -41,6 +47,14 @@ socket.on(event.updatePlayerList, (data) => {
 
 socket.on(event.clientRequestAddFriend, () => {
     other_updateWindow();
+})
+
+socket.on(event.clientMessage, (param) => {
+    friend_updateMessage(param);
+})
+
+socket.on(event.clientUpdateMessage, (param) => {
+    friend_updateMessage(param);
 })
 
 // Khi client ngắt kết nối
